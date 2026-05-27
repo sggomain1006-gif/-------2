@@ -1,0 +1,4359 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>グローバルプロジェクト 無料説明会 | NPO法人EdFuture</title>
+    <meta name="description" content="ハーバード・MIT・スタンフォード。世界トップ大学の学生と、無料で繋がる。高校生・大学生向けオンライン探究プログラム。">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-color: #55161F;
+            --white: #FFFFFF;
+            --accent-orange: #FF8B3D;
+            --accent-yellow: #FFD93D;
+            --accent-blue: #4A90E2;
+            --light-gray: #F5F5F5;
+            --text-dark: #333333;
+            --text-gray: #666666;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.75;
+            overflow-x: hidden;
+            background: var(--white);
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        /* PC表示時の背景 */
+        @media (min-width: 481px) {
+            body::before {
+                content: '';
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%);
+                z-index: -1;
+            }
+            
+            body {
+                box-shadow: 0 0 40px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* ヘッダー */
+        header {
+            position: fixed;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100%;
+            max-width: 480px;
+            background: transparent;
+            z-index: 1000;
+            padding: 20px 30px;
+            transition: background 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        header.scrolled {
+            background: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            border-bottom: 1px solid rgba(85, 22, 31, 0.1);
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        header.scrolled .logo {
+            filter: none;
+        }
+
+        .brand-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary-color);
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            transition: text-shadow 0.3s ease;
+        }
+
+        header.scrolled .brand-name {
+            text-shadow: none;
+        }
+
+        /* ファーストビュー — sticky full-screen */
+        .first-view {
+            position: sticky;
+            top: 0;
+            height: 100svh;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7A2530 100%);
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .fv-video-container {
+            position: absolute;
+            inset: 0;
+            background: #000;
+            overflow: hidden;
+        }
+
+        .fv-video-container video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
+            object-fit: cover;
+            opacity: 0.7;
+        }
+
+        .fv-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(180deg, rgba(85,22,31,0.15) 0%, rgba(85,22,31,0.65) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 80px 20px 140px; /* 下部バー分の余白 */
+            z-index: 3;
+        }
+
+        .fv-content {
+            position: relative;
+            z-index: 4;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* HEROの下部に固定するバー群 */
+        .fv-bottom-bars {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            z-index: 5;
+        }
+
+        .fv-text-logo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .fv-text-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fv-title {
+            font-size: 28px;
+            font-weight: 900;
+            color: var(--white);
+            text-align: center;
+            line-height: 1.5;
+            margin-bottom: 24px;
+            letter-spacing: 0.05em;
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+
+        .fv-subtitle {
+            font-size: 14px;
+            color: var(--white);
+            text-align: center;
+            line-height: 1.8;
+            opacity: 0.95;
+            margin-bottom: 32px;
+        }
+
+        .fv-cta {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #FF6B3D 100%);
+            color: var(--white);
+            padding: 18px 48px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(255,139,61,0.4);
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+
+        .fv-cta:active {
+            transform: scale(0.98);
+        }
+
+        /* セクション共通 */
+        .section {
+            padding: 60px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* HEROの上にスクロールする要素 */
+        .proof-bar,
+        footer {
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--primary-color);
+            text-align: center;
+            margin-bottom: 4px;
+            line-height: 1.5;
+        }
+
+        .section-subtitle-en {
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-gray);
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 32px;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+
+        .section-subtitle {
+            font-size: 14px;
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: 40px;
+            line-height: 1.8;
+        }
+
+        /* 悩みセクション */
+        .concerns {
+            background: var(--light-gray);
+        }
+
+        .concern-item {
+            background: var(--white);
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            border-left: 4px solid var(--accent-orange);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            font-size: 14px;
+            line-height: 1.8;
+        }
+
+        /* プログラム概要 */
+        .about-gp {
+            background: var(--white);
+        }
+
+        .gp-description {
+            font-size: 15px;
+            line-height: 1.9;
+            color: var(--text-dark);
+            margin-bottom: 32px;
+        }
+
+        /* 5つのポイント */
+        .points {
+            background: var(--light-gray);
+        }
+
+        .point-item {
+            background: var(--white);
+            border-radius: 16px;
+            padding: 0;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .point-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .point-content {
+            padding: 24px;
+        }
+
+        .point-number {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7A2530 100%);
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 32px;
+            font-weight: 700;
+            font-size: 16px;
+            margin-bottom: 12px;
+        }
+
+        .point-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+            line-height: 1.6;
+        }
+
+        .point-description {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-gray);
+        }
+
+        /* ワールド寺子屋 */
+        .world-terakoya {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 0;
+            position: relative;
+            overflow: visible;
+        }
+        .wt-sticky {
+            position: sticky;
+            top: 0;
+            height: 100svh;
+            overflow: hidden;
+            margin-bottom: -100svh; /* wt-contentを動画の上に重ねる */
+            z-index: 0;
+        }
+
+        .world-terakoya .section-title {
+            color: #FFD93C;
+        }
+
+        .wt-description {
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 32px;
+            opacity: 0.95;
+        }
+        .wt-description strong {
+            font-weight: 800;
+            text-decoration: underline;
+            text-decoration-color: var(--accent-yellow);
+            text-underline-offset: 3px;
+            text-decoration-thickness: 2px;
+        }
+
+        .wt-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            z-index: 0;
+        }
+        .wt-end-space {
+            height: 200svh; /* program-contentが下から上がってくる間、stickyを維持する */
+        }
+        .wt-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(55, 10, 18, 0.55);
+            z-index: 1;
+        }
+        .wt-content {
+            position: relative;
+            z-index: 2;
+            padding: 152px 20px 88px;
+            min-height: 100svh; /* 動画の上を1画面分スクロールできるようにする */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: var(--white);
+        }
+        /* 飛行機アニメーション: SP幅(375px)基準 */
+        .wt-plane {
+            position: absolute;
+            width: 416px;
+            height: 416px;
+            pointer-events: none;
+            z-index: -1;
+            /* SP: 左端から水平に入り、画面右寄りで80度の急上昇で上端から消える */
+            offset-path: path('M -56 620 C 70 620 196 200 245 -180');
+            offset-rotate: auto;
+            animation: wt-plane-fly 28s linear forwards;
+            animation-play-state: paused;
+        }
+        .wt-plane.flying {
+            animation-play-state: running;
+        }
+        @media (min-width: 768px) {
+            .wt-plane {
+                offset-path: path('M -140 620 C 210 620 840 300 945 -500');
+            }
+        }
+        @keyframes wt-plane-fly {
+            from { offset-distance: 0%; }
+            to   { offset-distance: 100%; }
+        }
+        /* wt-details内のボカシ・枠を除去 */
+        .wt-content .wt-details {
+            background: none !important;
+            backdrop-filter: none !important;
+            border-radius: 0 !important;
+            border: none !important;
+            padding: 0 !important;
+        }
+        .wt-content .wt-detail-item {
+            border-bottom: none !important;
+        }
+        /* 紙吹雪 */
+        .wt-confetti {
+            position: absolute;
+            top: -16px;
+            pointer-events: none;
+            z-index: 3;
+            animation: wtFall linear infinite;
+        }
+        @keyframes wtFall {
+            0%   { transform: translateY(0)    rotateZ(0deg)   rotateX(0deg);   opacity: 1; }
+            80%  { opacity: 0.8; }
+            100% { transform: translateY(110vh) rotateZ(540deg) rotateX(180deg); opacity: 0; }
+        }
+        .wt-details {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 24px;
+            backdrop-filter: blur(10px);
+        }
+
+        .wt-detail-item {
+            margin-bottom: 16px;
+            padding-bottom: 16px;
+            padding-left: 12px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            border-left: 2px solid rgba(255,255,255,0.8);
+        }
+
+        .wt-detail-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .wt-detail-label {
+            font-size: 10px;
+            opacity: 0.8;
+            margin-bottom: 2px;
+            display: inline-block;
+            background: rgba(255, 139, 61, 0.28);
+            border-radius: 50px;
+            padding: 3px 11px;
+        }
+
+        .wt-detail-value {
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        /* ゲスト講師 */
+        .guests {
+            background: var(--white);
+        }
+
+        .guest-item {
+            margin-bottom: 40px;
+        }
+
+        .guest-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .guest-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .guest-affiliation {
+            font-size: 14px;
+            color: var(--text-gray);
+        }
+
+        /* プログラム内容 */
+        /* program-contentをwrapperで包んでスライドイン */
+        .program-slide-wrapper {
+            overflow: hidden;   /* スライド中の右はみ出しをクリップ */
+            position: relative;
+            z-index: 10;
+            margin-top: -185svh;
+        }
+        .program-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: top;
+            z-index: 0;
+        }
+        .program-bg-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(55, 10, 18, 0.55);
+            z-index: 1;
+        }
+        .program-content {
+            background: transparent;
+            padding-top: 60px;
+            position: relative;
+            z-index: 2;
+            transform: translateX(100%);
+            transition: transform 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .program-content .section-title,
+        .program-content .section-subtitle-en,
+        .program-content .section-subtitle {
+            color: var(--white);
+        }
+        .program-content.slide-in {
+            transform: translateX(0);
+        }
+
+        .program-item {
+            position: relative;
+            border-radius: 20px;
+            margin-bottom: 24px;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            align-items: flex-end;
+            box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+            transform: translateY(0);
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+            cursor: pointer;
+        }
+        .program-item:hover,
+        .program-item:active {
+            transform: translateY(-6px);
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85),
+                        0 8px 32px rgba(255, 255, 255, 0.2);
+        }
+
+        .program-item.with-guest {
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .program-item.with-guest::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(85,22,31,0.85) 100%);
+            z-index: 1;
+        }
+
+        .program-item.align-right .program-content-wrapper {
+            margin-left: auto;
+        }
+
+        .program-content-wrapper {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            padding: 24px;
+        }
+
+        .program-item.align-right .program-info {
+            text-align: right;
+        }
+
+        .program-item.align-right .program-number {
+            margin-left: auto;
+            margin-right: 0;
+        }
+
+        .program-number {
+            display: inline-block;
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary-color) 0%, #7A2530 100%);
+            color: var(--white);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 56px;
+            font-weight: 900;
+            font-size: 24px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 12px rgba(85,22,31,0.4);
+        }
+
+        .program-session-title {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--white);
+            margin-bottom: 8px;
+            text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .program-item:not(.with-guest) .program-session-title {
+            color: var(--primary-color);
+            text-shadow: none;
+        }
+
+        .program-date {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            margin-bottom: 8px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .program-item:not(.with-guest) .program-date {
+            color: var(--accent-orange);
+            text-shadow: none;
+        }
+
+        .program-description {
+            font-size: 14px;
+            color: rgba(255,255,255,0.95);
+            margin-bottom: 12px;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .program-item:not(.with-guest) {
+            background: var(--light-gray);
+        }
+
+        .program-item:not(.with-guest) .program-description {
+            color: var(--text-gray);
+            text-shadow: none;
+        }
+
+        .program-guest {
+            display: none;
+        }
+
+        .program-image-container {
+            margin-top: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .program-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        /* 参加者の声 */
+        .voices {
+            background: var(--white);
+        }
+
+        /* ===== 満足度円グラフ ===== */
+        .satisfaction-pie-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 60px 0 60px;
+            overflow: visible;
+        }
+        .satisfaction-pie-sticky-outer {
+            position: sticky;
+            top: 280px;
+            align-self: flex-start;
+            width: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+        .satisfaction-pie-container {
+            width: 220px;
+            height: 220px;
+            overflow: visible;
+            margin: 0 auto;
+            position: relative;
+            pointer-events: auto;
+        }
+        .satisfaction-pie-svg {
+            width: 220px;
+            height: 220px;
+            overflow: visible;
+        }
+        .satisfaction-pie-track {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.7);
+            stroke-width: 18;
+            stroke-dasharray: 10 4;
+        }
+        .satisfaction-pie-prog {
+            fill: none;
+            stroke: #5F2222;
+            stroke-width: 18;
+            stroke-dasharray: 10 4;
+            stroke-dashoffset: 1005.31;
+            transform: rotate(-90deg);
+            transform-origin: 110px 110px;
+            transition: stroke-dashoffset 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .satisfaction-pie-inner {
+            fill: #5F2222;
+        }
+        .satisfaction-pie-center {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            white-space: nowrap;
+        }
+        .satisfaction-pie-num {
+            font-size: 46px;
+            font-weight: 900;
+            color: var(--accent-yellow);
+            line-height: 1;
+            letter-spacing: -0.02em;
+        }
+        .satisfaction-pie-num .satisfaction-pie-pct {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .satisfaction-pie-label {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            margin-top: 6px;
+        }
+        .satisfaction-pie-detail {
+            font-size: 9px;
+            color: rgba(255,220,80,0.8);
+            margin-top: 3px;
+        }
+        .arata-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 480px;
+            margin-top: 60px;
+            margin-right: -50px;
+            margin-left: auto;
+            z-index: 1;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .arata-wrap.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #arataStoryBox {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
+        }
+        #arataStoryBox.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .arata-img-inner {
+            display: block;
+            width: 100%;
+        }
+        .arata-bubble {
+            position: absolute;
+            left: -65px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid #000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 14px;
+            box-sizing: border-box;
+            font-size: 11px;
+            font-weight: 600;
+            line-height: 1.6;
+            color: #111;
+        }
+        .arata-name-vertical {
+            position: absolute;
+            top: 12%;
+            writing-mode: vertical-rl;
+            text-orientation: upright;
+            font-size: 30px;
+            font-weight: 900;
+            color: #fff;
+            -webkit-text-stroke: 2px #000;
+            letter-spacing: 0.08em;
+            z-index: 2;
+            right: 55px;
+            pointer-events: none;
+        }
+        .arata-story-box {
+            width: 100%;
+            box-sizing: border-box;
+            background: #fff;
+            border: 2px solid #000;
+            border-radius: 10px;
+            padding: 16px 18px 12px;
+            margin-top: 12px;
+            position: relative;
+            z-index: 1;
+        }
+        .arata-story-text {
+            font-size: 13px;
+            line-height: 1.85;
+            color: #111;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 4;
+            -webkit-box-orient: vertical;
+        }
+        .arata-story-text.expanded {
+            display: block;
+        }
+        .arata-story-toggle {
+            display: block;
+            margin: 8px auto 0;
+            background: none;
+            border: none;
+            font-size: 12px;
+            color: #555;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        .voice-sub-img {
+            display: block;
+            width: 100%;
+            max-width: 480px;
+            margin-top: 175px;
+        }
+        .chocho-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+        .zenji-wrap {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-bottom: 0;
+        }
+        .zenji-wrap .arata-img-inner {
+            object-fit: cover;
+            object-position: top;
+            max-height: 420px;
+        }
+        .zenji-bubble {
+            left: -65px;
+            right: auto;
+            top: 70%;
+        }
+        .zenji-name-vertical {
+            left: 55px;
+            right: auto;
+            top: 12%;
+        }
+        .chocho-name-vertical {
+            right: 55px;
+            top: 12%;
+        }
+        .chocho-bubble {
+            left: auto;
+            right: -65px;
+            top: 62%;
+        }
+        .voice-sub-img--left {
+            margin-right: auto;
+            margin-left: -80px;
+        }
+        .voice-sub-img--right {
+            margin-left: auto;
+            margin-right: -100px;
+        }
+        .satisfaction-pie-container .section-subtitle-en {
+            position: absolute;
+            top: 1px;
+            left: 50%;
+            transform: translate(-50%, calc(-50% + 28px));
+            white-space: nowrap;
+            z-index: 2;
+            margin: 0;
+        }
+        .satisfaction-pie-container .section-title {
+            position: absolute;
+            top: 1px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            white-space: nowrap;
+            z-index: 2;
+            margin: 0;
+        }
+
+        .satisfaction-number {
+            font-size: 48px;
+            font-weight: 900;
+            color: var(--white);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .satisfaction-text {
+            font-size: 14px;
+            color: var(--white);
+            opacity: 0.95;
+        }
+
+        .voice-card {
+            background: var(--light-gray);
+            border-radius: 16px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+        }
+
+        .voice-container {
+            background: var(--white);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 2px solid var(--light-gray);
+        }
+
+        .voice-image-slider {
+            position: relative;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .voice-image-slide {
+            display: none;
+            height: 240px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+
+        .voice-image-slide.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .voice-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(85,22,31,0.3) 0%, rgba(85,22,31,0.7) 100%);
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            padding: 20px;
+        }
+
+        .voice-bubble {
+            background: var(--white);
+            border: 3px solid var(--primary-color);
+            border-radius: 30px;
+            padding: 20px 24px;
+            max-width: 220px;
+            box-shadow: 0 4px 12px rgba(85,22,31,0.3);
+        }
+
+        .voice-quote {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .voice-slider-dots {
+            position: absolute;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 6px;
+            background-color: rgba(255,255,255,0.5);
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot.active {
+            background-color: var(--white);
+        }
+
+        .voice-content-fixed {
+            padding: 32px 24px;
+        }
+
+        .voice-profile {
+            margin-bottom: 24px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light-gray);
+        }
+
+        .voice-name-large {
+            font-size: 20px;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+
+        .voice-meta {
+            font-size: 13px;
+            color: var(--text-gray);
+        }
+
+        .voice-story-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 16px;
+            padding-left: 12px;
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .voice-story-text {
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text-dark);
+            margin-bottom: 20px;
+        }
+
+        .highlight-text {
+            background: linear-gradient(transparent 60%, rgba(255,139,61,0.3) 60%);
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .voice-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        .voice-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--white);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .voice-info {
+            flex: 1;
+        }
+
+        .voice-name {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .voice-detail {
+            font-size: 12px;
+            color: var(--text-gray);
+        }
+
+        .voice-content {
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text-dark);
+        }
+
+        /* 奨学金 */
+        .scholarship {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .scholarship .section-title {
+            color: #FFD93C;
+        }
+
+        .scholarship-description {
+            font-size: 15px;
+            line-height: 1.9;
+            margin-bottom: 32px;
+            opacity: 0.95;
+        }
+
+        .scholarship-highlight {
+            font-weight: 800;
+            text-decoration: underline;
+            text-decoration-color: var(--accent-yellow);
+            text-underline-offset: 3px;
+            text-decoration-thickness: 2px;
+        }
+        .scholarship-box {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 8px;
+            backdrop-filter: blur(10px);
+        }
+
+        .scholarship-card-simple {
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            padding: 7px 32px !important;
+            margin-bottom: 8px;
+            border: 2px solid transparent;
+            border-left: 4px solid var(--accent-orange);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .scholarship-card-simple:hover {
+            border-color: var(--primary-color);
+            box-shadow: 0 4px 16px rgba(85,22,31,0.2);
+            transform: translateY(-2px);
+        }
+
+        .scholarship-card-simple:last-child {
+            margin-bottom: 0;
+        }
+
+        .scholarship-card-title {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 32px !important;
+        }
+
+        .scholarship-card-desc {
+            font-size: 13px;
+            line-height: 1.6;
+            color: var(--text-gray);
+            margin: 0;
+            max-width: 100%;
+            padding: 0 !important;
+        }
+
+        /* 団体紹介 */
+        .about-org {
+            background: var(--white);
+        }
+
+        .mission-box {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .mission-item {
+            margin-bottom: 16px;
+        }
+
+        .mission-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .mission-label {
+            font-size: 12px;
+            color: var(--accent-orange);
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .mission-value {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .representative {
+            margin-bottom: 32px;
+        }
+
+        .rep-image {
+            width: 100%;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
+        }
+
+        .rep-message {
+            font-size: 14px;
+            line-height: 1.9;
+            color: var(--text-dark);
+            background: var(--light-gray);
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        .achievements {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 32px;
+        }
+
+        .achievement-item {
+            font-size: 14px;
+            line-height: 1.8;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .achievement-item::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+
+        .supporters {
+            text-align: center;
+        }
+
+        .supporter-label {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin-bottom: 12px;
+        }
+
+        .supporter-list {
+            font-size: 13px;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        /* 説明会日程 */
+        .session-schedule {
+            background: var(--primary-color);
+            color: var(--white);
+        }
+
+        .session-schedule .section-title {
+            color: #FFD93C;
+            margin-bottom: 4px;
+        }
+        .session-schedule .section-subtitle-en {
+            color: rgba(255,255,255,0.55);
+            margin-bottom: 36px;
+        }
+
+        .session-item-new {
+            background: rgba(255,255,255,0.95);
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .session-date {
+            background: linear-gradient(135deg, #FFD93C 0%, #FFC107 100%);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            min-width: 80px;
+            flex-shrink: 0;
+        }
+
+        .session-month {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 4px;
+        }
+
+        .session-day {
+            font-size: 32px;
+            font-weight: 900;
+            color: var(--primary-color);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .session-weekday {
+            font-size: 13px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .session-info {
+            flex: 1;
+        }
+
+        .session-time {
+            font-size: 18px;
+            font-weight: 900;
+            color: var(--primary-color);
+            margin-bottom: 6px;
+        }
+
+        .session-label {
+            font-size: 13px;
+            color: var(--text-gray);
+            font-weight: 600;
+        }
+
+        .session-item {
+            background: rgba(255,255,255,0.15);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            backdrop-filter: blur(10px);
+        }
+
+        .session-date-time {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .session-type {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+
+        .session-note {
+            font-size: 13px;
+            line-height: 1.8;
+            margin-top: 24px;
+            opacity: 0.9;
+        }
+
+        /* 参加条件 */
+        .conditions {
+            background: var(--white);
+        }
+
+        .condition-box {
+            background: var(--light-gray);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .condition-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 12px;
+        }
+
+        .condition-content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: var(--text-dark);
+        }
+
+        .price-highlight {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, var(--accent-yellow) 100%);
+            color: var(--white);
+            padding: 32px 24px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 4px 16px rgba(255,139,61,0.2);
+        }
+
+        .price-label {
+            font-size: 14px;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
+        .price-value {
+            font-size: 36px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        /* FAQ */
+        .faq {
+            background: var(--light-gray);
+        }
+
+        .faq-list {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.06);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.06);
+        }
+
+        .faq-question {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 18px 20px;
+            cursor: pointer;
+            user-select: none;
+            transition: background 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background: rgba(0,0,0,0.02);
+        }
+
+        .faq-badge {
+            flex-shrink: 0;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            font-weight: 900;
+            letter-spacing: 0;
+        }
+
+        .faq-q-badge {
+            background: #681D27;
+            color: #fff;
+        }
+
+        .faq-a-badge {
+            background: var(--accent-yellow);
+            color: #333;
+        }
+
+        .faq-question-text {
+            flex: 1;
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        .faq-toggle {
+            flex-shrink: 0;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid #ccc;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 300;
+            color: #aaa;
+            line-height: 1;
+            transition: transform 0.3s ease, background 0.3s ease,
+                        border-color 0.3s ease, color 0.3s ease;
+        }
+
+        .faq-question.active .faq-toggle {
+            transform: rotate(45deg);
+            background: var(--primary-color);
+            border-color: var(--primary-color);
+            color: #fff;
+        }
+
+        .faq-answer {
+            display: flex;
+            align-items: flex-start;
+            gap: 14px;
+            padding: 0 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.35s ease, padding 0.35s ease;
+            border-top: 0px solid rgba(0,0,0,0.08);
+        }
+
+        .faq-answer.active {
+            max-height: 500px;
+            padding: 16px 20px 22px;
+            border-top-width: 1px;
+        }
+
+        .faq-answer-text {
+            flex: 1;
+            font-size: 14px;
+            line-height: 1.85;
+            color: #555;
+            padding-top: 6px;
+        }
+
+        /* 申し込みフォーム */
+        .form-section {
+            background: var(--white);
+        }
+
+        .form-container {
+            background: var(--light-gray);
+            border-radius: 16px;
+            padding: 32px 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            font-size: 14px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .form-required {
+            color: var(--accent-orange);
+            font-size: 12px;
+            margin-left: 4px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-size: 14px;
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--white);
+            transition: border-color 0.3s ease;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: var(--accent-orange);
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #FF6B3D 100%);
+            color: var(--white);
+            padding: 18px 48px;
+            border-radius: 50px;
+            font-size: 16px;
+            font-weight: 700;
+            border: none;
+            width: 100%;
+            box-shadow: 0 4px 16px rgba(255,139,61,0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .form-submit:active {
+            transform: scale(0.98);
+        }
+
+        /* フッター */
+        footer {
+            background: var(--primary-color);
+            color: var(--white);
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .footer-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .footer-logo {
+            width: 48px;
+            height: 48px;
+        }
+
+        .footer-brand {
+            font-size: 20px;
+            font-weight: 700;
+        }
+
+        .footer-contact {
+            margin-bottom: 24px;
+        }
+
+        .footer-email {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 14px;
+            display: inline-flex;
+            align-items: center;
+            opacity: 0.9;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-email:hover {
+            opacity: 1;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .social-link {
+            color: var(--white);
+            transition: opacity 0.3s ease;
+        }
+
+        .social-link:hover {
+            opacity: 0.7;
+        }
+
+        .footer-links {
+            font-size: 13px;
+            margin-bottom: 24px;
+        }
+
+        .footer-link {
+            color: var(--white);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.3s ease;
+        }
+
+        .footer-link:hover {
+            opacity: 1;
+        }
+
+        .copyright {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        /* アニメーション */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        /* ===== スクロールアニメーション ===== */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .reveal-delay-1 { transition-delay: 0.1s; }
+        .reveal-delay-2 { transition-delay: 0.2s; }
+        .reveal-delay-3 { transition-delay: 0.3s; }
+        .reveal-delay-4 { transition-delay: 0.4s; }
+
+        /* ===== 募集中バッジ ===== */
+        .fv-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.15);
+            border: 1.5px solid rgba(255,255,255,0.5);
+            backdrop-filter: blur(8px);
+            color: #fff;
+            font-size: 12px;
+            font-weight: 700;
+            padding: 8px 18px;
+            border-radius: 50px;
+            margin-bottom: 20px;
+            letter-spacing: 0.08em;
+        }
+        .fv-badge-dot {
+            width: 8px;
+            height: 8px;
+            background: #FFD93D;
+            border-radius: 50%;
+            animation: pulseDot 1.5s ease-in-out infinite;
+        }
+        @keyframes pulseDot {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.4); opacity: 0.7; }
+        }
+
+        /* ===== CTAボタン pulse ===== */
+        @keyframes ctaPulse {
+            0%, 100% { box-shadow: 0 4px 16px rgba(255,139,61,0.4); }
+            50% { box-shadow: 0 4px 32px rgba(255,139,61,0.7), 0 0 0 8px rgba(255,139,61,0.1); }
+        }
+        .fv-cta {
+            animation: ctaPulse 2.5s ease-in-out infinite;
+        }
+
+        /* ===== ソーシャルプルーフ marquee ===== */
+        .proof-bar {
+            background: var(--primary-color);
+            color: #fff;
+            padding: 10px 0;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+        .proof-track {
+            display: inline-flex;
+            gap: 0;
+            animation: marquee 18s linear infinite;
+        }
+        .proof-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 0 28px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+        }
+        .proof-item span {
+            color: #FFD93D;
+        }
+        .proof-sep {
+            color: rgba(255,255,255,0.3);
+            font-size: 16px;
+        }
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== フローティングCTAバー ===== */
+        .floating-cta {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(120%);
+            width: 100%;
+            max-width: 480px;
+            padding: 12px 20px 24px;
+            z-index: 999;
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .floating-cta.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        .floating-cta-btn {
+            display: block;
+            width: 100%;
+            background: linear-gradient(135deg, var(--accent-orange) 0%, #FF6B3D 100%);
+            color: #fff;
+            text-align: center;
+            padding: 15px;
+            border-radius: 50px;
+            font-size: 15px;
+            font-weight: 700;
+            text-decoration: none;
+            box-shadow: 0 4px 16px rgba(255,139,61,0.35);
+            animation: ctaPulse 2.5s ease-in-out infinite;
+        }
+        .floating-cta-sub {
+            text-align: center;
+            font-size: 11px;
+            color: var(--text-gray);
+            margin-top: 5px;
+        }
+
+        /* ===== プログレスナビ ===== */
+        .progress-nav {
+            position: fixed;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 900;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        @media (max-width: 767px) {
+            .progress-nav { display: none !important; }
+        }
+        .progress-nav.show { opacity: 1; }
+        .progress-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(85,22,31,0.2);
+            border: 1.5px solid rgba(85,22,31,0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .progress-dot.active {
+            background: var(--primary-color);
+            transform: scale(1.3);
+        }
+
+        /* ===== カウントダウン ===== */
+        .countdown-wrap {
+            background: transparent;
+            border: none;
+            border-radius: 0;
+            padding: 8px 0 24px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+        .countdown-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.75);
+            margin-bottom: 20px;
+            letter-spacing: 0.1em;
+        }
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 18px;
+        }
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        .countdown-circle {
+            position: relative;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.05);
+            box-shadow:
+                0 0 18px rgba(255,255,255,0.12),
+                inset 0 0 14px rgba(255,255,255,0.03);
+            overflow: visible;
+        }
+        /* SVGプログレスリング */
+        .cd-ring-svg {
+            position: absolute;
+            inset: -6px;
+            width: calc(100% + 12px);
+            height: calc(100% + 12px);
+            transform: rotate(-90deg);
+            pointer-events: none;
+            z-index: 2;
+            overflow: visible;
+        }
+        .cd-ring-track {
+            fill: none;
+            stroke: rgba(255,255,255,0.15);
+            stroke-width: 1.5;
+        }
+        .cd-ring-prog {
+            fill: none;
+            stroke: rgba(255,255,255,0.85);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-dasharray: 276;
+            stroke-dashoffset: 276;
+            transition: stroke-dashoffset 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        @keyframes cd-sweep-sec {
+            from { stroke-dashoffset: 276; }
+            to   { stroke-dashoffset: 0; }
+        }
+        #cd-ring-secs {
+            animation: cd-sweep-sec 1s linear infinite;
+            transition: none;
+        }
+        .countdown-num {
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+        .countdown-unit-label {
+            font-size: 10px;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+        }
+        .countdown-sep {
+            display: none;
+        }
+
+        /* ===== カウンターアニメーション ===== */
+        .count-up {
+            display: inline-block;
+        }
+
+        /* ===== カードホバー強化 ===== */
+        .point-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .point-item:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.13);
+        }
+
+        /* ===== キーポイント カルーセル ===== */
+        .points-carousel-wrap {
+            overflow: hidden;
+            position: relative;
+            margin: 0 -24px;
+        }
+        .points-carousel-track {
+            display: flex;
+            will-change: transform;
+            cursor: grab;
+        }
+        .points-carousel-track:active { cursor: grabbing; }
+        .points-carousel-wrap .point-item {
+            flex: 0 0 82%;
+            margin: 0 8px;
+            margin-bottom: 0;
+        }
+        .points-carousel-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 20px;
+        }
+        .points-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(85,22,31,0.18);
+            transition: width 0.3s ease, background 0.3s ease, border-radius 0.3s ease;
+        }
+        .points-dot.active {
+            width: 24px;
+            border-radius: 4px;
+            background: var(--primary-color);
+        }
+        .scholarship-card-simple {
+            transition: all 0.3s ease;
+        }
+
+        /* ===== グラスモーフィズム強化 ===== */
+        .world-terakoya {
+            position: relative;
+            /* overflow指定なし: 上のブロックのoverflow:visibleを維持してstickyを有効にする */
+        }
+        .world-terakoya::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 200px;
+            height: 200px;
+            background: rgba(255,217,61,0.08);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .world-terakoya::after {
+            content: '';
+            position: absolute;
+            bottom: -40px;
+            left: -40px;
+            width: 150px;
+            height: 150px;
+            background: rgba(255,139,61,0.06);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .wt-details {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .session-schedule {
+            position: relative;
+            overflow: hidden;
+        }
+        .session-schedule::before {
+            content: '';
+            position: absolute;
+            top: -80px;
+            left: -80px;
+            width: 250px;
+            height: 250px;
+            background: rgba(255,217,61,0.06);
+            border-radius: 50%;
+            pointer-events: none;
+        }
+
+        /* ===== フォーム改善 ===== */
+        .form-group {
+            position: relative;
+        }
+        .form-input, .form-select, .form-textarea {
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            box-shadow: 0 0 0 3px rgba(255,139,61,0.15);
+        }
+        .form-input.valid {
+            border-color: #4CAF50;
+        }
+        .form-input.invalid {
+            border-color: #f44336;
+        }
+        .field-check {
+            position: absolute;
+            right: 14px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .field-check.show { opacity: 1; }
+
+        /* ===== セクション仕切り線 ===== */
+        .section-divider {
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-orange));
+            border-radius: 2px;
+            margin: 8px auto 28px;
+        }
+
+        /* ===== 実績バッジ ===== */
+        .achievements-badges {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 28px;
+        }
+        .achievement-badge {
+            background: linear-gradient(135deg, var(--primary-color), #7A2530);
+            color: #fff;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 0.04em;
+        }
+
+        /* ===== トップスクロール ===== */
+        .scroll-top {
+            position: fixed;
+            bottom: 80px;
+            right: 16px;
+            width: 40px;
+            height: 40px;
+            background: var(--primary-color);
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            font-size: 18px;
+            cursor: pointer;
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            z-index: 900;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(85,22,31,0.3);
+        }
+        .scroll-top.show {
+            opacity: 1;
+            transform: scale(1);
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="header-content">
+            <img src="rogo.png" alt="EdFuture ロゴ" class="logo">
+            <div class="brand-name">EdFuture</div>
+        </div>
+    </header>
+
+    <!-- ファーストビュー -->
+    <section class="first-view">
+        <div class="fv-video-container">
+            <video autoplay muted loop playsinline>
+                <source src="HP用動画.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <div class="fv-overlay">
+            <div class="fv-content">
+                <div class="fv-badge fv-fades"><span class="fv-badge-dot"></span>2026年度 参加者募集中</div>
+                <h1 class="fv-title">あなたの一歩で、<br>世界は近づく。</h1>
+                <p class="fv-subtitle fv-fades">ハーバード・MIT・スタンフォード。<br>世界トップ大学の学生と、多分野で活躍する大人と、<br>本気の仲間達と繋がる。<br>今まで海外に行ったことがなくても、<br>英語を流暢に話せなくても。<br>さぁ、君は何に挑戦する？</p>
+                <a href="https://forms.gle/VC6EL6qB272KM8mZ9" target="_blank" rel="noopener noreferrer" class="fv-cta fv-fades">無料説明会に申し込む</a>
+            </div>
+        </div>
+
+        <!-- 動画の上に固定されるバー群 -->
+        <div class="fv-bottom-bars">
+            <!-- ソーシャルプルーフ marquee -->
+            <div class="proof-bar" style="position:static;">
+                <div class="proof-track">
+                    <div class="proof-item"><span>✦</span> 参加者 <span>50名以上</span></div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> 参加者満足度 <span>94%</span></div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> <span>Harvard</span> · <span>MIT</span> · <span>Stanford</span> の学生と直接対話</div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> 完全オンライン・全国参加OK</div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> 英語力・成績 <span>不問</span></div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> 参加者 <span>50名以上</span></div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> 参加者満足度 <span>94%</span></div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> <span>Harvard</span> · <span>MIT</span> · <span>Stanford</span> の学生と直接対話</div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> 完全オンライン・全国参加OK</div>
+                    <div class="proof-sep">|</div>
+                    <div class="proof-item"><span>✦</span> 英語力・成績 <span>不問</span></div>
+                    <div class="proof-sep">|</div>
+                </div>
+            </div>
+            <!-- 英語力・成績不問バナー -->
+            <div style="background: var(--accent-yellow); padding: 13px 10px; text-align: center;">
+                <p style="font-size: 12px; font-weight: 700; color: var(--primary-color); margin: 0; line-height: 1.4;">✓ 英語力・成績不問 ✓ 完全オンライン ✓ 全国どこからでも参加OK</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- 共感シーン：悩む学生 -->
+    <style>
+        .concern-scene {
+            background: transparent;
+            padding: 16px 16px 12px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+        .concern-inner {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* スクロールで消えるHERO要素（タイトル以外） */
+        .fv-fades {
+            will-change: opacity;
+        }
+        .concern-inner {
+            display: flex;
+            align-items: flex-end;
+            gap: 0;
+            position: relative;
+            min-height: 85svh;
+        }
+        /* 人物ラッパー共通 */
+        .concern-person-wrap {
+            flex-shrink: 0;
+            width: 90%;
+            align-self: flex-end;
+        }
+        .concern-person-wrap img {
+            width: 100%;
+            display: block;
+            filter: drop-shadow(0 -4px 20px rgba(0,0,0,0.35));
+        }
+        /* 1人目：右に寄せる */
+        .concern-person-wrap.push-right {
+            margin-right: -36px;
+        }
+        /* 1人目の画像：右下起点でスケール */
+        /* 全人物画像：初期スケール（より小さく） */
+        .concern-person-wrap.push-right img {
+            transform-origin: bottom right;
+            transform: scale(0.01);
+            will-change: transform;
+        }
+        .concern-person-wrap.push-left img {
+            transform-origin: bottom left;
+            transform: scale(0.01);
+            will-change: transform;
+        }
+
+        /* 全吹き出し：半透明スタイル統一・初期スケール */
+        .concern-scene .concern-bubble {
+            background: rgba(255,255,255,0.18);
+            backdrop-filter: blur(6px);
+            border-color: rgba(255,255,255,0.35);
+            font-size: 11.5px;
+            padding: 12px 14px;
+            width: fit-content;
+            min-width: 60px;
+            transform: scale(0.01);
+            opacity: 0;
+            will-change: transform, opacity;
+            color: #fff;
+            text-shadow:
+                -1px -1px 0 #000,
+                 1px -1px 0 #000,
+                -1px  1px 0 #000,
+                 1px  1px 0 #000;
+        }
+        .concern-scene .concern-bubble.tail-right::after {
+            border-left-color: rgba(255,255,255,0.18);
+            bottom: auto; top: 50%; transform: translateY(-50%);
+        }
+        .concern-scene .concern-bubble.tail-left::after {
+            border-right-color: rgba(255,255,255,0.18);
+            bottom: auto; top: 50%; transform: translateY(-50%);
+        }
+
+        /* 右側シーン（人物右・吹き出し左） */
+        .scene-right .concern-inner {
+            position: relative;
+            justify-content: flex-end;
+        }
+        .scene-right .concern-bubble-wrap {
+            position: absolute;
+            top: 30svh;
+            left: 10px;
+            width: fit-content;
+            max-width: 50%;
+            padding: 0;
+            flex: none;
+            z-index: 3;
+        }
+        .scene-right .concern-bubble {
+            transform-origin: bottom right;
+        }
+
+        /* 左側シーン（人物左・吹き出し右） */
+        .scene-left .concern-inner {
+            position: relative;
+            justify-content: flex-start;
+        }
+        .scene-left .concern-bubble-wrap {
+            position: absolute;
+            top: 30svh;
+            right: 10px;
+            width: fit-content;
+            max-width: 50%;
+            padding: 0;
+            flex: none;
+            z-index: 3;
+        }
+        .scene-left .concern-bubble {
+            transform-origin: bottom left;
+        }
+        /* タイプライターカーソル */
+        .tw-cursor {
+            display: inline-block;
+            width: 2px;
+            background: rgba(255,255,255,0.9);
+            margin-left: 2px;
+            animation: twBlink 0.7s ease-in-out infinite;
+            vertical-align: middle;
+            height: 1em;
+        }
+        .tw-cursor.done { display: none; }
+        @keyframes twBlink {
+            0%, 100% { opacity: 1; }
+            50%       { opacity: 0; }
+        }
+        /* 2人目：左に寄せる */
+        .concern-person-wrap.push-left {
+            margin-left: -36px;
+        }
+        /* 2人目のみ大きく */
+        .scene-1 .concern-person-wrap {
+            width: 135%;
+            margin-right: -100px;
+        }
+        .scene-2 .concern-person-wrap {
+            width: 95%;
+        }
+        /* 1・2人目：吹き出しをさらに下へ */
+        .scene-1 .concern-bubble-wrap,
+        .scene-2 .concern-bubble-wrap {
+            top: 44svh;
+        }
+        /* 4人目：下マージンなし */
+        .scene-4 {
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+        .concern-bubble-wrap {
+            flex: 1;
+            padding-bottom: 48px;
+        }
+
+        /* 吹き出し共通 */
+        .concern-bubble {
+            background: rgba(255,255,255,0.65);
+            backdrop-filter: blur(8px);
+            padding: 16px 18px;
+            position: relative;
+            font-size: 13px;
+            font-weight: 700;
+            color: #fff;
+            line-height: 1.75;
+            box-shadow: 2px 4px 20px rgba(0,0,0,0.25);
+            border: 2.5px solid #fff;
+            text-shadow:
+                -1px -1px 0 #000,
+                 1px -1px 0 #000,
+                -1px  1px 0 #000,
+                 1px  1px 0 #000;
+        }
+
+        /* 人物が右・吹き出しが左 → しっぽは右向き */
+        .concern-bubble.tail-right {
+            border-radius: 20px 20px 4px 20px;
+        }
+        .concern-bubble.tail-right::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            right: -14px;
+            left: auto;
+            width: 0; height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-left: 14px solid rgba(255,255,255,0.65);
+        }
+
+        /* 人物が左・吹き出しが右 → しっぽは左向き */
+        .concern-bubble.tail-left {
+            border-radius: 20px 20px 20px 4px;
+        }
+        .concern-bubble.tail-left::after {
+            content: '';
+            position: absolute;
+            bottom: 20px;
+            left: -14px;
+            width: 0; height: 0;
+            border-top: 8px solid transparent;
+            border-bottom: 8px solid transparent;
+            border-right: 14px solid rgba(255,255,255,0.65);
+        }
+
+        /* 「…」ドット */
+        .concern-thought {
+            margin-top: 8px;
+            display: flex;
+            gap: 5px;
+            align-items: center;
+        }
+        .concern-thought.align-right { padding-right: 12px; justify-content: flex-end; }
+        .concern-thought.align-left  { padding-left: 12px; }
+        .thought-dot {
+            width: 7px; height: 7px;
+            background: rgba(255,255,255,0.7);
+            border-radius: 50%;
+            animation: thoughtPulse 1.8s ease-in-out infinite;
+        }
+        .thought-dot:nth-child(2) { animation-delay: 0.3s; width: 9px; height: 9px; }
+        .thought-dot:nth-child(3) { animation-delay: 0.6s; width: 11px; height: 11px; }
+        @keyframes thoughtPulse {
+            0%, 100% { opacity: 0.35; }
+            50% { opacity: 0.9; }
+        }
+        /* 人物をつなぐ曲線ライン */
+        .concern-wrap {
+            position: relative;
+        }
+        .concern-line-svg {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        #concern-line-path {
+            fill: none;
+            stroke: rgba(255, 255, 255, 0.5);
+            stroke-width: 1.5;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            filter: url(#line-glow);
+        }
+    </style>
+
+    <div class="concern-wrap">
+    <svg id="concern-line-svg" class="concern-line-svg" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="line-glow">
+                <feGaussianBlur stdDeviation="2.5" result="blur"/>
+                <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+        </defs>
+        <path id="concern-line-path"/>
+    </svg>
+
+    <!-- 共感シーン①：2085（右側） -->
+    <div class="concern-scene scene-right scene-1">
+        <div class="concern-inner">
+            <div class="concern-bubble-wrap">
+                <div class="concern-bubble tail-right">
+                    <span class="tw-text"></span><span class="tw-cursor"></span>
+                </div>
+            </div>
+            <div class="concern-person-wrap push-right">
+                <img src="IMG_2085.PNG" alt="海外に興味を持つ学生">
+            </div>
+        </div>
+    </div>
+
+    <!-- 共感シーン②：2222（左側） -->
+    <div class="concern-scene scene-left scene-2">
+        <div class="concern-inner">
+            <div class="concern-person-wrap push-left">
+                <img src="IMG_2222.png" alt="海外大に興味を持つ学生">
+            </div>
+            <div class="concern-bubble-wrap">
+                <div class="concern-bubble tail-left">
+                    <span class="tw-text"></span><span class="tw-cursor"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 共感シーン③：5555（右側） -->
+    <div class="concern-scene scene-right">
+        <div class="concern-inner">
+            <div class="concern-bubble-wrap">
+                <div class="concern-bubble tail-right">
+                    <span class="tw-text"></span><span class="tw-cursor"></span>
+                </div>
+            </div>
+            <div class="concern-person-wrap push-right">
+                <img src="IMG_5555.png" alt="このまま卒業したくない学生">
+            </div>
+        </div>
+    </div>
+
+    <!-- 共感シーン④：4444（左側） -->
+    <div class="concern-scene scene-left scene-4">
+        <div class="concern-inner">
+            <div class="concern-person-wrap push-left">
+                <img src="IMG_4444.png" alt="本気の仲間を求める学生">
+            </div>
+            <div class="concern-bubble-wrap">
+                <div class="concern-bubble tail-left">
+                    <span class="tw-text"></span><span class="tw-cursor"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    </div><!-- /.concern-wrap -->
+
+    <!-- グローバルプロジェクトとは -->
+    <section class="section about-gp" id="sec-about">
+        <h2 class="section-title reveal">グローバルプロジェクトって？</h2>
+        <p class="section-subtitle-en">What is GP?</p>
+        <p class="gp-description">
+            全国の高校生・大学生が、ハーバード・スタンフォード・MITなど世界トップ大学の学生とオンラインで繋がり、デザイン思考を活用して社会課題に取り組む探究型プログラムです。
+        </p>
+        <img src="GP1.png" alt="グローバルプロジェクト イメージ" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
+    </section>
+
+    <!-- プログラムの5つのポイント -->
+    <section class="section points" id="sec-points">
+        <h2 class="section-title reveal">3つのキーポイント</h2>
+        <p class="section-subtitle-en reveal reveal-delay-1">3 Key Points</p>
+
+        <div class="points-carousel-wrap reveal reveal-delay-1">
+            <div class="points-carousel-track" id="pointsTrack">
+                <div class="point-item">
+                    <img src="point1.png" alt="世界トップ大学の学生と直接対話" class="point-image">
+                    <div class="point-content">
+                        <div class="point-number">01</div>
+                        <div class="point-title">世界トップ大学の学生と直接対話</div>
+                        <p class="point-description">ハーバード・MIT・スタンフォードの現役学生から、リアルな経験を聞ける</p>
+                    </div>
+                </div>
+                <div class="point-item">
+                    <img src="point2.png" alt="デザイン思考で自分だけのテーマに挑戦" class="point-image">
+                    <div class="point-content">
+                        <div class="point-number">02</div>
+                        <div class="point-title">デザイン思考で"自分だけ"のテーマに挑戦</div>
+                        <p class="point-description">知識を詰め込むだけじゃない。実際に行動し、失敗し、学ぶプログラム</p>
+                    </div>
+                </div>
+                <div class="point-item">
+                    <img src="point3.png" alt="完全オンライン・全国どこからでも" class="point-image">
+                    <div class="point-content">
+                        <div class="point-number">03</div>
+                        <div class="point-title">完全オンライン・全国どこからでも</div>
+                        <p class="point-description">地方でも、海外経験がなくても、平等に参加できる</p>
+                    </div>
+                </div>
+            </div>
+            <div class="points-carousel-dots" id="pointsDots">
+                <span class="points-dot active"></span>
+                <span class="points-dot"></span>
+                <span class="points-dot"></span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 優秀者特典: ワールド寺子屋 -->
+    <section class="section world-terakoya">
+        <!-- 動画だけsticky: テキストは通常スクロール -->
+        <div class="wt-sticky">
+            <video class="wt-bg-video" src="優秀者セクション.mp4" autoplay muted loop playsinline></video>
+            <div class="wt-overlay"></div>
+        </div>
+        <!-- テキストは通常フロー: 動画の上をスクロールして上がっていく -->
+        <div class="wt-content">
+            <!-- 飛行機: 左下→右上、テキストの後ろ側 -->
+            <img class="wt-plane" src="飛行機.svg" alt="" aria-hidden="true">
+            <div class="wt-top">
+                <h2 class="section-title">優秀者はワールド寺子屋参加権獲得</h2>
+                <p class="section-subtitle-en" style="color: var(--white); opacity: 0.9;">A Golden Ticket for Top Performers</p>
+            </div>
+            <div class="wt-bottom">
+                <p class="wt-description">
+                    グローバルプロジェクトの参加者は<strong>「ワールド寺子屋(短期海外研修)」の一次選考が免除</strong>されます。さらに、<strong>優秀者は修了時点で参加権を獲得</strong>します。<br><br>プログラムでの学び→実際の海外経験という、明確なステップアップの道を用意しています。
+                </p>
+                <div class="wt-details">
+                    <div class="wt-detail-item">
+                        <div class="wt-detail-label">渡航先</div>
+                        <div class="wt-detail-value">サンフランシスコ、ボストン・ニューヨーク</div>
+                    </div>
+                    <div class="wt-detail-item">
+                        <div class="wt-detail-label">内容</div>
+                        <div class="wt-detail-value">現地高校との交流、大学訪問、企業訪問、世界で活躍する大人との交流</div>
+                    </div>
+                    <div class="wt-detail-item">
+                        <div class="wt-detail-label">過去の満足度</div>
+                        <div class="wt-detail-value">94%(2024年度)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- stickyを維持するためのスペース（プログラム内容が下から登場する間） -->
+        <div class="wt-end-space"></div>
+    </section>
+
+    <!-- プログラム内容 -->
+    <div class="program-slide-wrapper">
+    <video class="program-bg-video" src="優秀者セクション.mp4" autoplay muted loop playsinline></video>
+    <div class="program-bg-overlay"></div>
+    <section class="section program-content" id="sec-program">
+        <h2 class="section-title">プログラム内容</h2>
+        <p class="section-subtitle-en">Program Schedule</p>
+        <p class="section-subtitle">
+            本気で世界に挑戦する大人と触れ合い、世界に挑戦する一歩を後押しする。<br>
+            ハーバード、MIT、スタンフォード、コロンビア。世界最高峰の大学で学ぶ現役学生と直接対話できる特別セッションを各回に用意しています。
+        </p>
+
+        <div class="program-item with-guest" style="background-image: url('nakamura_sho.jpg');">
+            <div class="program-content-wrapper">
+                <div class="program-info">
+                    <div class="program-number">01</div>
+                    <h3 class="program-session-title">興味関心深掘り</h3>
+                    <p class="program-date">7月19日(日) 9:00-12:00</p>
+                    <p class="program-description">グローバルゲスト講師: 中村 柾 (ハーバード・スタンフォード卒 EdFuture代表)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="program-item with-guest align-right" style="background-image: url('2026 GP Step 2_ Shiba Yutaro.png');">
+            <div class="program-content-wrapper">
+                <div class="program-info">
+                    <div class="program-number">02</div>
+                    <h3 class="program-session-title">デザイン思考・課題発見リーチアウト</h3>
+                    <p class="program-date">8月9日(日) 9:00-12:00</p>
+                    <p class="program-description">グローバルゲスト講師: 芝 雄太郎 (コロンビア大学 学部生)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="program-item with-guest" style="background-image: url('GP2.png');">
+            <div class="program-content-wrapper">
+                <div class="program-info">
+                    <div class="program-number">03</div>
+                    <h3 class="program-session-title">アイディエイト</h3>
+                    <p class="program-date">8月23日(日) 9:00-12:00</p>
+                    <p class="program-description">中間振り返りセッション / アイディエイトセッション</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="program-item with-guest align-right" style="background-image: url('2026 GP Step 4_Nana Norimoto.jpg');">
+            <div class="program-content-wrapper">
+                <div class="program-info">
+                    <div class="program-number">04</div>
+                    <h3 class="program-session-title">プロトタイプ</h3>
+                    <p class="program-date">9月13日(日) 9:00-12:00</p>
+                    <p class="program-description">グローバルゲスト講師: 則本 菜奈子 (ハーバード教育大学院生)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="program-item with-guest" style="background-image: url('2026 GP Step 5_Yuki Tanaka.jpg');">
+            <div class="program-content-wrapper">
+                <div class="program-info">
+                    <div class="program-number">05</div>
+                    <h3 class="program-session-title">テスト</h3>
+                    <p class="program-date">10月4日(日) 9:00-12:00</p>
+                    <p class="program-description">グローバルゲスト講師: 田中 優希 (MIT(マサチューセッツ工科大学) 学部生)</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="program-item with-guest align-right" style="background-image: url('GP3.png');">
+            <div class="program-content-wrapper">
+                <div class="program-info">
+                    <div class="program-number">06</div>
+                    <h3 class="program-session-title">EXPO DAY</h3>
+                    <p class="program-date">10月25日(日) 9:00-12:00</p>
+                    <p class="program-description">オンライン成果発表</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    </div><!-- /.program-slide-wrapper -->
+
+    <!-- 参加者の声 -->
+    <section class="section voices" id="sec-voices">
+        <div class="satisfaction-pie-wrap reveal">
+            <div class="satisfaction-pie-sticky-outer">
+                <div class="satisfaction-pie-container">
+                    <h2 class="section-title">参加者の声</h2>
+                    <p class="section-subtitle-en">voice</p>
+                    <svg class="satisfaction-pie-svg" viewBox="0 0 220 220">
+                        <g id="pieRing">
+                            <circle class="satisfaction-pie-track" cx="110" cy="110" r="160"/>
+                            <circle class="satisfaction-pie-prog" id="satisfactionPieArc" cx="110" cy="110" r="160"/>
+                        </g>
+                        <circle class="satisfaction-pie-inner" cx="110" cy="110" r="67"/>
+                    </svg>
+                    <div class="satisfaction-pie-center">
+                        <div class="satisfaction-pie-num"><span id="satisfactionCount">0</span><span class="satisfaction-pie-pct">%</span></div>
+                        <div class="satisfaction-pie-label">参加者満足度</div>
+                        <div class="satisfaction-pie-detail">2024年度 第1回実施</div>
+                    </div>
+                </div>
+            </div>
+            <div id="arataWrap" class="arata-wrap">
+                <div class="arata-bubble">
+                    <p>探究テーマ：<br>「皆が特性を持ったありのままの自分を肯定できるには？」</p>
+                </div>
+                <img id="arataImg" src="Arata.png" alt="Arata" class="arata-img-inner">
+                <span class="arata-name-vertical">Arata</span>
+            </div>
+            <div class="arata-story-box" id="arataStoryBox">
+                <div class="arata-story-text" id="arataStory">言語化できなかった"生涯かけて向き合いたい問い"を形にするため、このプログラムで一歩踏み出しました。グローバルプロジェクトでは、NPO法人「wacca」さんにオンラインインタビューし、その後には「生きてるだけで金メダル！」と書かれたデザインのステッカーやバッジを作成して、周りの人に配ったり、「今日の偉かった自分」をシェアするLINEグループを作成し、効果検証しました。また、「自分の特性ヒーローストーリー」絵本シリーズを試作しました。そのあとは、ワールド寺子屋プログラムに参加し、ボストンとニューヨークに留学しました。一緒に参加したメンバーは、課外活動をたくさん経験してきた人もいれば、これが初めての課外活動という人もいました。そこに違いはあっても、皆「一歩踏みだす仲間」という点では何も違いがありませんし、「一歩踏み出した」今、私たちの目の前には参加前とは全く違う景色が広がっています。自分と向き合い、「一歩踏み出したい」と思ったら、ぜひ参加してほしいです。</div>
+                <button class="arata-story-toggle" id="arataStoryToggle" onclick="toggleArataStory()">続きを読む ▼</button>
+            </div>
+            <div class="chocho-wrap voice-sub-img voice-sub-img--left">
+                <img src="chocho.png" alt="chocho" class="arata-img-inner">
+                <span class="arata-name-vertical chocho-name-vertical">Chocho</span>
+                <div class="arata-bubble chocho-bubble">
+                    <p>探究テーマ：<br>「発展途上国の子どもたちが働きながら学べる環境づくり」</p>
+                </div>
+            </div>
+            <div class="arata-story-box">
+                <div class="arata-story-text" id="chochoStory">私がグローバルプロジェクトに参加したきっかけは、将来は海外で働きたいという思いがあったものの、具体的なビジョンを描けずにいました。HPで知り「私もやってみたい！」と強く感じたことがきっかけです。グローバルプロジェクトでは、アフリカで活動されている日本の方にインタビューをしたり、学校で文房具を回収して現地に届けたり、このプログラムで考えたアイディアをもとに「起業スタートダッシュ」プログラムに参加しました。海外で活躍されているスピーカーのお話を聞いたとき、「こういう世界もあるんだ」と気づき、大きな高揚感とともに自分の意識が変わる瞬間を体験しました。プログラムを通して、世界の課題を自分ごととして捉える力が養われました。多様な価値観を持つ仲間と本気で議論する中で、自分の考えを深めることができ、特に「自分だけの物差しを持つこと」の大切さを学びました。最初は自信がなかった自分も、発言や行動を重ねるうちに少しずつ成長を実感し、将来に向けて挑戦する意欲が高まりました。この経験は、今後の進路選択や学びにおいて大きな指針となっています。自分の視野を広げ、世界の課題に向き合う一歩を踏み出せる貴重な機会です。多様な仲間との出会いや、本気で語り合う時間が、新しい気づきと自信を生み出してくれます。挑戦と行動をしたら必ず変化はおきます！決めるのは自分、頼るのはスタッフや仲間、Take it easy！</div>
+                <button class="arata-story-toggle" id="chochoStoryToggle" onclick="toggleChochoStory()">続きを読む ▼</button>
+            </div>
+            <div class="zenji-wrap voice-sub-img voice-sub-img--right">
+                <div class="arata-bubble zenji-bubble">
+                    <p>探究テーマ：<br>「どんな人でも一歩を踏み出すには、何が必要？」</p>
+                </div>
+                <img src="Zenji.png" alt="Zenji" class="arata-img-inner">
+                <span class="arata-name-vertical zenji-name-vertical">Zenji</span>
+            </div>
+            <div class="arata-story-box">
+                <div class="arata-story-text" id="zenjiStory">グローバルプロジェクトで初めて自分のテーマを決めて活動する中、何をしたいのか分からず悩みましたが、ハワイに留学した高校の英語の先生とのZoomをきっかけに方向性を見つけました。先生から、学生でないと応募できない奨学金が多く、留学準備に苦労したという話を聞き、「なぜこんなに素晴らしい人でも支援されないのか」と疑問を抱き、似鳥国際奨学財団に直接メールを送り、若者にできることを尋ねました。グローバルプロジェクトで初めて自分のテーマを決めて活動する中、何をしたいのか分からず悩みましたが、ハワイに留学した高校の英語の先生とのZoomをきっかけに方向性を見つけました。先生から、学生でないと応募できない奨学金が多く、留学準備に苦労したという話を聞き、「なぜこんなに素晴らしい人でも支援されないのか」と疑問を抱き、似鳥国際奨学財団に直接メールを送り、若者にできることを尋ねました。これらの経験を通して、「まずは新しいことに挑戦してみる」ことが人生を変える一歩になると実感しました。やらない理由を探すより、迷ったらやってみる。その上で考えることで、自分のやりたいことがより明確になると感じています。今後はGPやSF派遣での学びを生かして大学受験に挑戦し、ラテンアメリカの文化や社会を学びながら自分の世界を広げていきたいです。Edfutureスタッフさんの手厚いサポートと、日本の素晴らしい同年代との出会いは、大きな刺激になりました。</div>
+                <button class="arata-story-toggle" id="zenjiStoryToggle" onclick="toggleZenjiStory()">続きを読む ▼</button>
+            </div>
+        </div>
+
+    </section>
+
+    <!-- 地方応援枠・奨学金制度 -->
+    <section class="section scholarship" id="sec-scholarship">
+        <h2 class="section-title">奨学金制度あり</h2>
+        <p class="section-subtitle-en">Scholarship is available</p>
+        <p class="scholarship-description">
+            edfutureは、すべての子どもが安心して挑戦できる環境を目指しています。<span class="scholarship-highlight">地方在住の方、経済的に不安がある方のために、応援枠・奨学金制度を用意</span>しています。
+        </p>
+
+        <div class="scholarship-box">
+            <div class="scholarship-card-simple">
+                <h3 class="scholarship-card-title">地方参加者応援枠</h3>
+                <p class="scholarship-card-desc">首都圏(東京・神奈川・埼玉・千葉・大阪)を除く地域在学者</p>
+            </div>
+
+            <div class="scholarship-card-simple">
+                <h3 class="scholarship-card-title">奨学金枠</h3>
+                <p class="scholarship-card-desc">準生活保護世帯・住民税非課税世帯など経済的困難がある方</p>
+            </div>
+
+            <div class="scholarship-card-simple">
+                <h3 class="scholarship-card-title">制度詳細</h3>
+                <p class="scholarship-card-desc">合計約10名程度、給付型(返済不要)、受給決定時は参加費用が全額免除</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- edfutureについて -->
+    <section class="section about-org">
+        <h2 class="section-title">未来のために多様な教育を。</h2>
+<p class="section-subtitle-en">education For future</p>
+
+        <div class="representative">
+            <img src="代表挨拶.jpg" alt="代表 中村柾" class="rep-image">
+            <div class="rep-message">
+                <strong>代表 中村柾からのメッセージ</strong><br><br>
+                19歳のとき初めてアメリカへ飛び出し、そこで見た景色と出会った人たちが、人生の方向を大きく変えました。挑戦に必要なのは、完璧な英語力や特別な才能ではありません。必要なのは、ただ「行ってみたい！」という気持ちだけ。皆さんが一歩踏み出すのを、EdFutureの情熱あるスタッフが全力で支えます。
+            </div>
+        </div>
+    </section>
+
+    <!-- 説明会日程 -->
+    <style>
+        /* ====== SESSION SCHEDULE — editorial timeline ====== */
+        .session-schedule {
+            padding: 56px 24px 48px;
+        }
+        .sched-eyebrow {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            color: var(--accent-orange);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .sched-heading {
+            font-size: 28px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1.35;
+            margin-bottom: 6px;
+            letter-spacing: -0.01em;
+        }
+        .sched-heading em {
+            font-style: normal;
+            color: var(--accent-yellow);
+        }
+        .sched-sub {
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 36px;
+        }
+
+        /* カウントダウン（既存スタイル継承、上書きのみ） */
+        .session-schedule .countdown-wrap {
+            margin-bottom: 10px;
+        }
+        .session-schedule .countdown-num {
+            color: var(--accent-yellow);
+        }
+
+        /* タイムライン全体 */
+        .sched-timeline {
+            position: relative;
+            padding-left: 36px;
+            margin-bottom: 36px;
+        }
+        /* 縦線 */
+        .sched-timeline::before {
+            content: '';
+            position: absolute;
+            left: 12px;
+            top: 8px;
+            bottom: 8px;
+            width: 2px;
+            background: rgba(255,255,255,0.7);
+        }
+
+        /* 各セッションアイテム */
+        .sched-item {
+            position: relative;
+            margin-bottom: 20px;
+            transition: opacity 0.4s ease;
+        }
+        .sched-item:last-child { margin-bottom: 0; }
+        .sched-item:first-child .sched-dot { top: 1px; }
+
+        /* タイムラインドット */
+        .sched-dot {
+            position: absolute;
+            left: -30px;
+            top: 18px;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background: #fff;
+            border: 2px solid rgba(255,255,255,0.4);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.3);
+            z-index: 2;
+            transition: all 0.4s ease;
+        }
+
+        /* カード本体 */
+        .sched-card {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.7);
+            border-radius: 14px;
+            padding: 18px 20px;
+            position: relative;
+            overflow: hidden;
+            transition: border-color 0.3s ease, background 0.3s ease;
+            display: flex;
+            align-items: center;
+        }
+        .sched-item:not(.session-ended) .sched-card:hover {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,139,61,0.4);
+        }
+
+        /* 日付 + 曜日 */
+        .sched-date-row {
+            flex: 1;
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+            margin-bottom: 6px;
+        }
+        .sched-month {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            letter-spacing: 0.05em;
+        }
+        .sched-day {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+        .sched-weekday {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.55);
+            padding: 2px 7px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+            margin-left: 2px;
+        }
+        .sched-time {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0;
+            letter-spacing: 0.04em;
+            white-space: nowrap;
+        }
+        .sched-label-text {
+            font-size: 13px;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+        }
+
+        /* 次回バッジ */
+        .sched-next-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            background: var(--accent-orange);
+            color: #fff;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.1em;
+            padding: 3px 10px;
+            border-radius: 50px;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+        .sched-next-badge::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #fff;
+            border-radius: 50%;
+            animation: pulseDot 1.5s ease-in-out infinite;
+        }
+        /* 次回カードのグロー */
+        .sched-item.is-next .sched-card {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.85);
+            box-shadow: 0 0 24px rgba(255,255,255,0.12);
+        }
+        .sched-item.is-next .sched-dot {
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.4), 0 0 12px rgba(255,255,255,0.4);
+        }
+
+        /* スペシャルタグ */
+        .sched-special-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            background: linear-gradient(135deg, #FFD93D, #FF8B3D);
+            color: #55161F;
+            font-size: 10px;
+            font-weight: 900;
+            letter-spacing: 0.08em;
+            padding: 3px 10px;
+            border-radius: 50px;
+            margin-bottom: 10px;
+        }
+
+        /* 終了スタンプ */
+        .sched-item.session-ended {
+            opacity: 0.5;
+        }
+        .sched-item.session-ended .sched-dot {
+            background: rgba(255,255,255,0.2);
+            box-shadow: 0 0 0 3px rgba(255,255,255,0.15);
+        }
+        .sched-item.session-ended .sched-card {
+            background: rgba(0,0,0,0.15);
+            border-color: rgba(255,255,255,0.06);
+            filter: grayscale(0.6);
+        }
+        .sched-item.session-ended .sched-day,
+        .sched-item.session-ended .sched-time {
+            color: rgba(255,255,255,0.4);
+        }
+        .sched-item.session-ended .sched-month,
+        .sched-item.session-ended .sched-label-text {
+            color: rgba(255,255,255,0.3);
+        }
+
+        /* ゴム印スタンプ */
+        .sched-stamp {
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%) rotate(-12deg);
+            border: 2.5px solid rgba(255,80,80,0.7);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 900;
+            color: rgba(255,80,80,0.75);
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+            pointer-events: none;
+            /* ラフな印鑑っぽいエフェクト */
+            text-shadow:
+                0.5px 0.5px 0 rgba(255,80,80,0.3),
+                -0.3px -0.3px 0 rgba(255,80,80,0.2);
+            box-shadow:
+                inset 0 0 0 1px rgba(255,80,80,0.15),
+                0 0 8px rgba(255,80,80,0.1);
+            opacity: 0;
+            transition: opacity 0.5s ease 0.1s;
+        }
+        .sched-item.session-ended .sched-stamp {
+            opacity: 1;
+        }
+
+        /* ノート */
+        .sched-note {
+            background: rgba(255,255,255,0.06);
+            border-left: 3px solid rgba(255,255,255,0.7);
+            border-radius: 0 10px 10px 0;
+            padding: 16px 18px;
+            margin-left: 12px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.75);
+            line-height: 2;
+        }
+        .sched-note span {
+            color: var(--accent-yellow);
+            font-weight: 700;
+            margin-right: 4px;
+        }
+
+        /* ===== ドラムピッカー ===== */
+        .drum-picker-wrap {
+            margin-bottom: 32px;
+            user-select: none;
+            -webkit-user-select: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .drum-bar-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex-shrink: 0;
+            gap: 5px;
+        }
+        .drum-bar-svg {
+            width: 30px;
+            height: 325px;
+            overflow: visible;
+        }
+        .drum-hint-arrow {
+            display: block;
+            font-size: 9px;
+            line-height: 1;
+            color: rgba(255,255,255,0.6);
+        }
+        .drum-hint-up {
+            animation: drumHintUp 1.6s ease-in-out infinite;
+        }
+        .drum-hint-down {
+            animation: drumHintDown 1.6s ease-in-out infinite;
+            animation-delay: 0.8s;
+        }
+        @keyframes drumHintUp {
+            0%, 100% { opacity: 0.25; transform: translateY(0); }
+            50%       { opacity: 0.85; transform: translateY(-3px); }
+        }
+        @keyframes drumHintDown {
+            0%, 100% { opacity: 0.25; transform: translateY(0); }
+            50%       { opacity: 0.85; transform: translateY(3px); }
+        }
+        .drum-viewport {
+            flex: 1;
+            min-width: 0;
+            height: 325px;
+            overflow: hidden;
+            position: relative;
+            cursor: grab;
+        }
+        .drum-viewport:active { cursor: grabbing; }
+        .drum-track {
+            position: relative;
+            will-change: transform;
+        }
+        .drum-item {
+            height: 65px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            box-sizing: border-box;
+            border: 1px solid rgba(255,255,255,0.35);
+            border-radius: 14px;
+            margin: 0 2px;
+            background: rgba(255,255,255,0.05);
+            position: relative;
+            overflow: hidden;
+            transform-origin: center center;
+            transition: transform 0.32s ease, opacity 0.32s ease, filter 0.32s ease,
+                        border-color 0.32s ease, background 0.32s ease,
+                        box-shadow 0.32s ease;
+        }
+        .drum-item-date {
+            display: flex;
+            align-items: baseline;
+            gap: 6px;
+        }
+        .drum-item-month {
+            font-size: 12px;
+            font-weight: 700;
+            color: var(--accent-yellow);
+            letter-spacing: 0.05em;
+        }
+        .drum-item-day {
+            font-size: 38px;
+            font-weight: 900;
+            color: #fff;
+            line-height: 1;
+            letter-spacing: -0.03em;
+        }
+        .drum-item-weekday {
+            font-size: 13px;
+            font-weight: 700;
+            color: rgba(255,255,255,0.55);
+            padding: 2px 7px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 4px;
+        }
+        .drum-item-time {
+            font-size: 15px;
+            font-weight: 700;
+            color: #fff;
+            white-space: nowrap;
+            letter-spacing: 0.04em;
+        }
+        .drum-item-stamp {
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            transform: translateY(-50%) rotate(-12deg);
+            border: 2.5px solid rgba(255,80,80,0.7);
+            border-radius: 6px;
+            padding: 3px 8px;
+            font-size: 10px;
+            font-weight: 900;
+            color: rgba(255,80,80,0.75);
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+            pointer-events: none;
+            text-shadow: 0.5px 0.5px 0 rgba(255,80,80,0.3);
+            box-shadow: inset 0 0 0 1px rgba(255,80,80,0.15);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .drum-item.drum-ended .drum-item-stamp { opacity: 1; }
+        .drum-item-label {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            padding: 2px 0;
+        }
+        .drum-item-main {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 0.02em;
+        }
+        .drum-item-sub {
+            font-size: 11px;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.02em;
+        }
+        .drum-fade-top,
+        .drum-fade-bottom {
+            position: absolute;
+            left: 0; right: 0;
+            height: 32px;
+            pointer-events: none;
+            z-index: 5;
+        }
+        .drum-fade-top {
+            top: 0;
+            background: linear-gradient(to bottom, #55161F 0%, rgba(85,22,31,0) 100%);
+        }
+        .drum-fade-bottom {
+            bottom: 0;
+            background: linear-gradient(to top, #55161F 0%, rgba(85,22,31,0) 100%);
+        }
+    </style>
+
+    <section class="section session-schedule" id="sec-schedule">
+
+        <h2 class="section-title reveal">まずは無料説明会へ</h2>
+        <p class="section-subtitle-en reveal reveal-delay-1">free information session</p>
+
+        <!-- カウントダウン -->
+        <div class="countdown-wrap reveal reveal-delay-3">
+            <div class="countdown-label">▶ 次回説明会まで</div>
+            <div class="countdown-timer">
+                <div class="countdown-unit">
+                    <div class="countdown-circle">
+                        <svg class="cd-ring-svg" viewBox="0 0 92 92"><circle class="cd-ring-track" cx="46" cy="46" r="44"/><circle class="cd-ring-prog" id="cd-ring-days" cx="46" cy="46" r="44"/></svg>
+                        <div class="countdown-num" id="cd-days">--</div>
+                    </div>
+                    <div class="countdown-unit-label">DAYS</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="countdown-circle">
+                        <svg class="cd-ring-svg" viewBox="0 0 92 92"><circle class="cd-ring-track" cx="46" cy="46" r="44"/><circle class="cd-ring-prog" id="cd-ring-hours" cx="46" cy="46" r="44"/></svg>
+                        <div class="countdown-num" id="cd-hours">--</div>
+                    </div>
+                    <div class="countdown-unit-label">HOURS</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="countdown-circle">
+                        <svg class="cd-ring-svg" viewBox="0 0 92 92"><circle class="cd-ring-track" cx="46" cy="46" r="44"/><circle class="cd-ring-prog" id="cd-ring-mins" cx="46" cy="46" r="44"/></svg>
+                        <div class="countdown-num" id="cd-mins">--</div>
+                    </div>
+                    <div class="countdown-unit-label">MINUTES</div>
+                </div>
+                <div class="countdown-unit">
+                    <div class="countdown-circle">
+                        <svg class="cd-ring-svg" viewBox="0 0 92 92"><circle class="cd-ring-track" cx="46" cy="46" r="44"/><circle class="cd-ring-prog" id="cd-ring-secs" cx="46" cy="46" r="44"/></svg>
+                        <div class="countdown-num" id="cd-secs">--</div>
+                    </div>
+                    <div class="countdown-unit-label">SECONDS</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ドラムピッカー -->
+        <div class="drum-picker-wrap reveal">
+            <!-- 左側の曲線バー -->
+            <div class="drum-bar-wrap">
+                <span class="drum-hint-arrow drum-hint-up">▲</span>
+                <svg class="drum-bar-svg" viewBox="0 0 30 325" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <filter id="drumDotGlow" x="-80%" y="-80%" width="260%" height="260%">
+                            <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" result="blur"/>
+                            <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                        </filter>
+                    </defs>
+                    <!-- 左に膨らむ曲線 -->
+                    <path d="M 22 0 Q 4 162.5 22 325"
+                          stroke="rgba(255,255,255,0.65)" stroke-width="2"
+                          fill="none" stroke-linecap="round"/>
+                    <!-- ±2 上ドット (y=32.5, cx≈19) -->
+                    <circle cx="19" cy="32.5" r="3"
+                            fill="rgba(255,255,255,0.2)"
+                            stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                    <!-- ±1 上ドット (y=97.5, cx≈14) -->
+                    <circle cx="14" cy="97.5" r="4"
+                            fill="rgba(255,255,255,0.35)"
+                            stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                    <!-- 中央の大ドット (y=162.5, cx=13) -->
+                    <circle cx="13" cy="162.5" r="7"
+                            fill="#fff"
+                            filter="url(#drumDotGlow)"/>
+                    <!-- 外輪 -->
+                    <circle cx="13" cy="162.5" r="12"
+                            fill="none"
+                            stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                    <!-- ±1 下ドット (y=227.5, cx≈14) -->
+                    <circle cx="14" cy="227.5" r="4"
+                            fill="rgba(255,255,255,0.35)"
+                            stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+                    <!-- ±2 下ドット (y=292.5, cx≈19) -->
+                    <circle cx="19" cy="292.5" r="3"
+                            fill="rgba(255,255,255,0.2)"
+                            stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+                </svg>
+                <span class="drum-hint-arrow drum-hint-down">▼</span>
+            </div>
+            <!-- ドラム本体 -->
+            <div class="drum-viewport" id="drumViewport">
+                <div class="drum-track" id="drumTrack"></div>
+                <div class="drum-fade-top"></div>
+                <div class="drum-fade-bottom"></div>
+            </div>
+        </div>
+
+        <p class="session-note sched-note reveal">
+            <span>✓</span> 親御さん・友達との参加もOK<br>
+            <span>✓</span> 完全無料・オンライン開催<br>
+            <span>✓</span> 少しでも気になったら、まずは説明会へ
+        </p>
+    </section>
+
+    <script>
+        /* ====== セッション終了チェック ====== */
+        /* ====== ドラムピッカー ====== */
+        (function() {
+            const ITEM_H = 65;
+            const N = 5;
+            const COPIES = 7; /* バッファを十分に確保 */
+
+            const data = [
+                { month: '5月', day: '23', weekday: '土', time: '20:00 — 21:00', deadline: '2026-05-23T20:00:00+09:00' },
+                { month: '5月', day: '31', weekday: '日', time: '9:00 — 10:00',  deadline: '2026-05-31T09:00:00+09:00' },
+                { month: '6月', day: '6',  weekday: '土', time: '19:00 — 21:00', deadline: '2026-06-06T19:00:00+09:00' },
+                { month: '6月', day: '10', weekday: '水', time: '20:00 — 21:00', deadline: '2026-06-10T20:00:00+09:00' },
+                { label: 'アーカイブを視聴', sub: '全ての日程に参加できない場合', deadline: null },
+            ];
+
+            const viewport = document.getElementById('drumViewport');
+            const track    = document.getElementById('drumTrack');
+            if (!viewport || !track) return;
+
+            const now = new Date();
+            const itemEls = [];
+
+            for (let c = 0; c < COPIES; c++) {
+                for (let i = 0; i < N; i++) {
+                    const d = data[i];
+                    const ended = d.deadline ? now >= new Date(d.deadline) : false;
+                    const el = document.createElement('div');
+                    el.className = 'drum-item' + (ended ? ' drum-ended' : '');
+                    if (d.label) {
+                        el.innerHTML =
+                            '<div class="drum-item-label">' +
+                                '<span class="drum-item-main">' + d.label + '</span>' +
+                                '<span class="drum-item-sub">' + d.sub + '</span>' +
+                            '</div>';
+                    } else {
+                        el.innerHTML =
+                            '<div class="drum-item-date">' +
+                                '<span class="drum-item-month">' + d.month + '</span>' +
+                                '<span class="drum-item-day">'   + d.day   + '</span>' +
+                                '<span class="drum-item-weekday">(' + d.weekday + ')</span>' +
+                            '</div>' +
+                            '<div class="drum-item-time">' + d.time + '</div>' +
+                            '<div class="drum-item-stamp">受付終了</div>';
+                    }
+                    track.appendChild(el);
+                    itemEls.push(el);
+                }
+            }
+
+            /* 初期位置: 中央コピー（4コピー目）の次回セッション */
+            const MID = Math.floor(COPIES / 2); /* = 3 */
+            let startIdx = MID * N;
+            for (let i = 0; i < N; i++) {
+                if (now < new Date(data[i].deadline)) { startIdx = MID * N + i; break; }
+            }
+            let centerIndex = startIdx;
+            let normalizeTimer = null;
+
+            function getTranslateY(idx) {
+                /* ビューポート中心 = 162.5px (325/2), 5アイテム表示 */
+                return (2 * ITEM_H - idx * ITEM_H);
+            }
+
+            function updateStyles(animated) {
+                track.style.transition = animated
+                    ? 'transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94)'
+                    : 'none';
+                track.style.transform = 'translateY(' + getTranslateY(centerIndex) + 'px)';
+
+                for (let i = 0; i < itemEls.length; i++) {
+                    const off = Math.abs(i - centerIndex);
+                    const el = itemEls[i];
+                    if (off === 0) {
+                        el.style.cssText +=
+                            ';transform:scale(1);opacity:1;filter:brightness(1)' +
+                            ';border-color:rgba(255,255,255,0.85);background:rgba(255,255,255,0.10)' +
+                            ';box-shadow:0 0 24px rgba(255,255,255,0.12)';
+                    } else if (off === 1) {
+                        el.style.cssText +=
+                            ';transform:scale(0.88);opacity:0.7;filter:brightness(0.65)' +
+                            ';border-color:rgba(255,255,255,0.4);background:rgba(255,255,255,0.05)' +
+                            ';box-shadow:none';
+                    } else if (off === 2) {
+                        el.style.cssText +=
+                            ';transform:scale(0.75);opacity:0.4;filter:brightness(0.45)' +
+                            ';border-color:rgba(255,255,255,0.2);background:rgba(255,255,255,0.02)' +
+                            ';box-shadow:none';
+                    } else {
+                        el.style.cssText +=
+                            ';transform:scale(0.65);opacity:0;filter:brightness(0.3)' +
+                            ';border-color:rgba(255,255,255,0.1);background:transparent' +
+                            ';box-shadow:none';
+                    }
+                }
+            }
+
+            function normalize() {
+                let changed = false;
+                /* 常に中央コピー範囲 [MID*N, (MID+1)*N) に収める */
+                while (centerIndex < MID * N)       { centerIndex += N; changed = true; }
+                while (centerIndex >= (MID + 1) * N) { centerIndex -= N; changed = true; }
+                if (changed) updateStyles(false);
+            }
+
+            function move(delta) {
+                centerIndex += delta;
+                updateStyles(true);
+                clearTimeout(normalizeTimer);
+                normalizeTimer = setTimeout(normalize, 380);
+            }
+
+            updateStyles(false);
+
+            /* ホイール */
+            let wheelAcc = 0, wheelTimer = null;
+            viewport.addEventListener('wheel', function(e) {
+                e.preventDefault();
+                e.stopPropagation();
+                clearTimeout(wheelTimer);
+                wheelAcc += e.deltaY;
+                if (Math.abs(wheelAcc) >= 40) {
+                    move(wheelAcc > 0 ? 1 : -1);
+                    wheelAcc = 0;
+                }
+                wheelTimer = setTimeout(function() { wheelAcc = 0; }, 300);
+            }, { passive: false });
+
+            /* タッチ */
+            let touchPrevY = 0, touchUnused = 0;
+            viewport.addEventListener('touchstart', function(e) {
+                touchPrevY = e.touches[0].clientY;
+                touchUnused = 0;
+            }, { passive: true });
+            viewport.addEventListener('touchmove', function(e) {
+                e.preventDefault();
+                const y = e.touches[0].clientY;
+                touchUnused += touchPrevY - y;
+                touchPrevY = y;
+                while (Math.abs(touchUnused) >= 40) {
+                    move(touchUnused > 0 ? 1 : -1);
+                    touchUnused += touchUnused > 0 ? -40 : 40;
+                }
+            }, { passive: false });
+        })();
+
+        /* ====== キーポイント カルーセル ====== */
+        (function() {
+            const track = document.getElementById('pointsTrack');
+            const dotsWrap = document.getElementById('pointsDots');
+            if (!track || !dotsWrap) return;
+
+            const origItems = Array.from(track.querySelectorAll('.point-item'));
+            const N = origItems.length; // 3
+            const dots = Array.from(dotsWrap.querySelectorAll('.points-dot'));
+
+            /* クローンを先頭・末尾に追加して無限ループを実現 */
+            const lastClone  = origItems[N - 1].cloneNode(true);
+            const firstClone = origItems[0].cloneNode(true);
+            track.insertBefore(lastClone, origItems[0]);
+            track.appendChild(firstClone);
+            /* track内: [clone_last, item0, item1, item2, clone_first] */
+
+            let trackIdx = 1;   /* 現在表示中のtrack上インデックス */
+            let realIdx  = 0;   /* ドット用インデックス 0〜N-1 */
+            let transitioning = false;
+            let autoTimer = null;
+
+            function slotWidth() {
+                const item = track.children[1]; /* 最初の本物アイテム */
+                return item.offsetWidth + 16;   /* margin 8px × 2 */
+            }
+
+            function centerOffset() {
+                const wrapW = track.parentElement.offsetWidth;
+                const itemW = track.children[1].offsetWidth;
+                return (wrapW - itemW) / 2 - 8;
+            }
+
+            function setPos(idx, animated) {
+                track.style.transition = animated
+                    ? 'transform 0.5s cubic-bezier(0.25,0.46,0.45,0.94)'
+                    : 'none';
+                track.style.transform =
+                    'translateX(' + (centerOffset() - idx * slotWidth()) + 'px)';
+            }
+
+            function updateDots(ri) {
+                dots.forEach(function(d, i) {
+                    d.classList.toggle('active', i === ri);
+                });
+            }
+
+            function goTo(idx, ri, animated) {
+                trackIdx = idx;
+                realIdx  = ri;
+                setPos(trackIdx, animated);
+                updateDots(realIdx);
+            }
+
+            function advance(dir) {
+                if (transitioning) return;
+                transitioning = true;
+                var nextTrack = trackIdx + dir;
+                var nextReal  = (realIdx + dir + N) % N;
+                trackIdx = nextTrack;
+                realIdx  = nextReal;
+                setPos(trackIdx, true);
+                updateDots(realIdx);
+            }
+
+            track.addEventListener('transitionend', function() {
+                transitioning = false;
+                /* クローン端に到達したら本物へ瞬時ジャンプ */
+                if (trackIdx === 0) {
+                    setPos(N, false);
+                    trackIdx = N;
+                } else if (trackIdx === N + 1) {
+                    setPos(1, false);
+                    trackIdx = 1;
+                }
+            });
+
+            /* 初期位置 */
+            setPos(1, false);
+            updateDots(0);
+
+            /* 自動スクロール */
+            function startAuto() {
+                stopAuto();
+                autoTimer = setInterval(function() { advance(1); }, 2000);
+            }
+            function stopAuto() {
+                if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
+            }
+            startAuto();
+
+            /* タッチ操作 */
+            var touchStartX = 0, touchDeltaX = 0;
+            track.parentElement.addEventListener('touchstart', function(e) {
+                touchStartX = e.touches[0].clientX;
+                touchDeltaX = 0;
+                track.style.transition = 'none';
+                stopAuto();
+            }, { passive: true });
+            track.parentElement.addEventListener('touchmove', function(e) {
+                touchDeltaX = e.touches[0].clientX - touchStartX;
+                track.style.transform =
+                    'translateX(' + (centerOffset() - trackIdx * slotWidth() + touchDeltaX) + 'px)';
+            }, { passive: true });
+            track.parentElement.addEventListener('touchend', function() {
+                if (Math.abs(touchDeltaX) > 60) {
+                    advance(touchDeltaX < 0 ? 1 : -1);
+                } else {
+                    setPos(trackIdx, true);
+                }
+                startAuto();
+            });
+
+            /* マウスドラッグ */
+            var mouseStartX = 0, mouseDeltaX = 0, dragging = false;
+            track.addEventListener('mousedown', function(e) {
+                mouseStartX = e.clientX; mouseDeltaX = 0;
+                dragging = true;
+                track.style.transition = 'none';
+                stopAuto();
+                e.preventDefault();
+            });
+            document.addEventListener('mousemove', function(e) {
+                if (!dragging) return;
+                mouseDeltaX = e.clientX - mouseStartX;
+                track.style.transform =
+                    'translateX(' + (centerOffset() - trackIdx * slotWidth() + mouseDeltaX) + 'px)';
+            });
+            document.addEventListener('mouseup', function() {
+                if (!dragging) return;
+                dragging = false;
+                if (Math.abs(mouseDeltaX) > 60) {
+                    advance(mouseDeltaX < 0 ? 1 : -1);
+                } else {
+                    setPos(trackIdx, true);
+                }
+                startAuto();
+            });
+        })();
+    </script>
+
+    <!-- 参加条件・費用 -->
+    <section class="section conditions">
+        <h2 class="section-title">参加条件・費用</h2>
+<p class="section-subtitle-en">requirements and fee</p>
+
+        <div class="condition-box">
+            <div class="condition-title">募集期間</div>
+            <div class="condition-content">2026年5月15日〜2026年7月12日(日本時間)<br>※定員に達し次第締め切り</div>
+        </div>
+
+        <div class="condition-box">
+            <div class="condition-title">募集人数</div>
+            <div class="condition-content">高校生: 30名 / 大学生: 10名<br>※先着順に選考</div>
+        </div>
+
+        <div class="condition-box">
+            <div class="condition-title">応募資格</div>
+            <div class="condition-content">
+                • 2026年5月時点で日本の高校・大学それに相当する教育機関に在学中(現高1〜大4)<br>
+                • 心身ともに健康であること<br>
+                • プログラム実施日程全6回に参加できること<br>
+                • オンラインでセッションに参加できる環境(安定した通信環境、PC/タブレット必須)
+            </div>
+        </div>
+
+        <div class="condition-box">
+            <div class="condition-title">参加費</div>
+            <div class="condition-content">45,000円（税込）</div>
+        </div>
+    </section>
+
+    <!-- よくある質問 -->
+    <section class="section faq" id="sec-faq">
+        <h2 class="section-title">よくある質問</h2>
+        <p class="section-subtitle-en">FAQ</p>
+
+        <div class="faq-list">
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-badge faq-q-badge">Q</span>
+                    <span class="faq-question-text">英語力に自信がありませんが、参加できますか?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="faq-badge faq-a-badge">A</span>
+                    <span class="faq-answer-text">はい、成績や英語力での基準は設けておりませんのでご参加いただけます。挑戦の気持ちを尊重しております。</span>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-badge faq-q-badge">Q</span>
+                    <span class="faq-question-text">地方在住ですが参加できますか?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="faq-badge faq-a-badge">A</span>
+                    <span class="faq-answer-text">はい、可能です。説明会及び全6回のプログラムは全てオンラインでの開催ですのでご自宅からご参加いただけます。</span>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-badge faq-q-badge">Q</span>
+                    <span class="faq-question-text">高校1年生ですが参加できますか?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="faq-badge faq-a-badge">A</span>
+                    <span class="faq-answer-text">はい、ご参加いただけます。過去参加者にも多くいらっしゃいます。</span>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-badge faq-q-badge">Q</span>
+                    <span class="faq-question-text">全6回すべて参加必須ですか?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="faq-badge faq-a-badge">A</span>
+                    <span class="faq-answer-text">全6回のプログラムは、ご自身の探究を進めていただくためにも参加必須とさせていただいております。特段の事情がある場合は説明会、または公式LINEなどでご相談ください。</span>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-badge faq-q-badge">Q</span>
+                    <span class="faq-question-text">ワールド寺子屋の選考免除条件は?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="faq-badge faq-a-badge">A</span>
+                    <span class="faq-answer-text">参加者の中から優秀な成果を残した方数名が選考免除となります。また、仮に選ばれなかった場合でもワールド寺子屋への選考へのお申し込みは可能ですのでご安心ください。</span>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question">
+                    <span class="faq-badge faq-q-badge">Q</span>
+                    <span class="faq-question-text">説明会に参加しないとプログラムに参加できませんか?</span>
+                    <span class="faq-toggle">+</span>
+                </div>
+                <div class="faq-answer">
+                    <span class="faq-badge faq-a-badge">A</span>
+                    <span class="faq-answer-text">説明会への参加は必須ではありませんが、より内容を理解するためにも参加を推奨しております！もし日程の関係で難しそうであれば、ぜひアーカイブをご覧ください。</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 申し込みCTA -->
+    <section id="form" class="section form-section" data-section="7" style="background: linear-gradient(135deg, var(--primary-color) 0%, #7A2530 100%); text-align: center;">
+        <h2 class="section-title reveal" style="color: #FFD93D; font-size: 26px; margin-bottom: 8px;">さぁ、一歩踏み出そう。</h2>
+        <p class="reveal reveal-delay-1" style="color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.8; margin-bottom: 32px;">
+            まずは無料説明会へ。<br>英語力・成績不問。全国どこからでも参加OK。
+        </p>
+
+        <div class="reveal reveal-delay-2" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 28px 20px; margin-bottom: 28px;">
+            <p style="color: rgba(255,255,255,0.7); font-size: 11px; letter-spacing: 0.1em; margin-bottom: 16px;">NEXT SESSION</p>
+            <p style="color: #FFD93D; font-size: 20px; font-weight: 900; margin-bottom: 4px;">5月31日(日) 9:00〜10:00</p>
+            <p style="color: rgba(255,255,255,0.75); font-size: 13px;">完全無料・オンライン開催</p>
+        </div>
+
+        <a href="https://forms.gle/VC6EL6qB272KM8mZ9"
+           target="_blank"
+           rel="noopener noreferrer"
+           class="reveal reveal-delay-3"
+           style="display: block; background: linear-gradient(135deg, var(--accent-orange) 0%, #FF6B3D 100%); color: #fff; padding: 20px; border-radius: 50px; font-size: 17px; font-weight: 900; text-decoration: none; box-shadow: 0 6px 24px rgba(255,107,61,0.45); animation: ctaPulse 2.5s ease-in-out infinite; margin-bottom: 14px; letter-spacing: 0.03em;">
+            無料説明会に申し込む →
+        </a>
+        <p class="reveal reveal-delay-4" style="color: rgba(255,255,255,0.55); font-size: 11px;">
+            ※ Googleフォームに移動します
+        </p>
+    </section>
+
+    <!-- フローティングCTAバー -->
+    <div class="floating-cta" id="floatingCta">
+        <a href="https://forms.gle/VC6EL6qB272KM8mZ9" target="_blank" rel="noopener noreferrer" class="floating-cta-btn">無料説明会に申し込む →</a>
+    </div>
+
+    <!-- スクロールトップボタン -->
+    <button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+    <!-- プログレスナビ -->
+    <nav class="progress-nav" id="progressNav">
+        <div class="progress-dot active" data-section="0" title="トップ"></div>
+        <div class="progress-dot" data-section="1" title="プログラムとは"></div>
+        <div class="progress-dot" data-section="2" title="ポイント"></div>
+        <div class="progress-dot" data-section="3" title="プログラム内容"></div>
+        <div class="progress-dot" data-section="4" title="参加者の声"></div>
+        <div class="progress-dot" data-section="5" title="奨学金"></div>
+        <div class="progress-dot" data-section="6" title="説明会日程"></div>
+        <div class="progress-dot" data-section="7" title="申し込み"></div>
+    </nav>
+
+    <!-- フッター -->
+    <footer>
+        <div class="footer-header">
+            <img src="rogo.png" alt="EdFuture ロゴ" class="footer-logo">
+            <div class="footer-brand">NPO法人 EdFuture</div>
+        </div>
+        
+        <div class="footer-contact">
+            <a href="mailto:info@edfuture2022.org" class="footer-email">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" style="margin-right: 8px;">
+                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+                info@edfuture2022.org
+            </a>
+        </div>
+        
+        <div class="social-links">
+            <a href="https://www.facebook.com/profile.php?id=100063545013511" class="social-link" target="_blank" rel="noopener">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+            </a>
+            <a href="https://x.com/npo_edfuture" class="social-link" target="_blank" rel="noopener">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+            </a>
+            <a href="https://www.instagram.com/npo_edfuture/" class="social-link" target="_blank" rel="noopener">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                </svg>
+            </a>
+            <a href="https://lin.ee/e29aXVo" class="social-link" target="_blank" rel="noopener">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                </svg>
+            </a>
+        </div>
+
+        <div class="footer-links">
+            <a href="http://edfuture.jp/" class="footer-link" target="_blank" rel="noopener">公式HP</a>
+        </div>
+
+        <div class="copyright">© 2026 NPO法人EdFuture. All Rights Reserved.</div>
+    </footer>
+
+
+    <script>
+        // ヘッダーのスクロール処理
+        const header = document.querySelector('header');
+        const floatingCta = document.getElementById('floatingCta');
+        const scrollTopBtn = document.getElementById('scrollTop');
+        const progressNav = document.getElementById('progressNav');
+
+        window.addEventListener('scroll', () => {
+            const scrollY = window.scrollY;
+
+            // ヘッダー（HEROとワールド寺子屋セクションでは透明）
+            const wtSection = document.querySelector('.world-terakoya');
+            const wtRect = wtSection ? wtSection.getBoundingClientRect() : null;
+            const isOverWt = wtRect && wtRect.top <= 0 && wtRect.bottom > 0;
+            if (scrollY <= 100 || isOverWt) {
+                header.classList.remove('scrolled');
+            } else {
+                header.classList.add('scrolled');
+            }
+
+            // フローティングCTA (グローバルプロジェクトセクションに入ったら表示、申し込みCTAセクションに入ったら非表示)
+            const aboutSection = document.getElementById('sec-about');
+            const formSection = document.getElementById('form');
+            const reachedForm = formSection && formSection.getBoundingClientRect().top < window.innerHeight;
+            if (!reachedForm && aboutSection && aboutSection.getBoundingClientRect().top < window.innerHeight) {
+                floatingCta.classList.add('show');
+            } else {
+                floatingCta.classList.remove('show');
+            }
+
+            // スクロールトップボタン
+            if (scrollY > 400) {
+                scrollTopBtn.classList.add('show');
+            } else {
+                scrollTopBtn.classList.remove('show');
+            }
+
+            // プログレスナビ
+            if (scrollY > 200) {
+                progressNav.classList.add('show');
+            } else {
+                progressNav.classList.remove('show');
+            }
+
+            // プログレスドット更新
+            updateProgressDots();
+
+        });
+
+        // FAQアコーディオン
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const answer = question.nextElementSibling;
+                const isActive = question.classList.contains('active');
+                
+                // 全てのFAQを閉じる
+                document.querySelectorAll('.faq-question').forEach(q => {
+                    q.classList.remove('active');
+                    q.nextElementSibling.classList.remove('active');
+                });
+                
+                // クリックされたFAQを開く（既に開いていた場合は閉じる）
+                if (!isActive) {
+                    question.classList.add('active');
+                    answer.classList.add('active');
+                }
+            });
+        });
+
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    const headerHeight = 60;
+                    const targetPosition = target.offsetTop - headerHeight;
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // ===== HEROフェード ＋ 全シーン スケール＆タイプライター =====
+        const fvFadeEls = document.querySelectorAll('.fv-fades');
+
+        function calcProgress(rectTop, startTop, endTop) {
+            if (rectTop >= startTop) return 0;
+            if (rectTop <= endTop)   return 1;
+            return (startTop - rectTop) / (startTop - endTop);
+        }
+
+        // シーン設定（順番はHTML出現順）
+        const sceneTexts = [
+            '海外に興味はあるけど\nいきなり行くのはハードル高いしなぁ…',
+            '海外大の人の話とか\n聞いてみたい...',
+            'このまま卒業は嫌だなぁ...',
+            '本気の仲間が欲しい...',
+        ];
+
+        const sceneObjects = Array.from(document.querySelectorAll('.concern-scene')).map((el, i) => ({
+            el,
+            personImg : el.querySelector('.concern-person-wrap img'),
+            bubble    : el.querySelector('.concern-bubble'),
+            twTextEl  : el.querySelector('.tw-text'),
+            twCursorEl: el.querySelector('.tw-cursor'),
+            text      : sceneTexts[i] || '',
+            twStarted : false,
+        }));
+
+        function startTypewriterForScene(s) {
+            if (s.twStarted || !s.twTextEl) return;
+            s.twStarted = true;
+            let i = 0;
+            const iv = setInterval(() => {
+                const ch = s.text[i++];
+                if (ch === '\n') { s.twTextEl.innerHTML += '<br>'; }
+                else             { s.twTextEl.innerHTML += ch; }
+                if (i >= s.text.length) {
+                    clearInterval(iv);
+                    if (s.twCursorEl) s.twCursorEl.classList.add('done');
+                }
+            }, 75);
+        }
+
+        const heroSceneEl = sceneObjects[0]?.el;
+
+        function onScroll() {
+            const vh = window.innerHeight;
+
+            // ── HEROテキスト フェードアウト（シーン1基準） ──
+            if (heroSceneEl) {
+                const r = heroSceneEl.getBoundingClientRect();
+                const p = calcProgress(r.top, vh, vh / 2 - heroSceneEl.offsetHeight / 2);
+                const op = 1 - p;
+                fvFadeEls.forEach(el => {
+                    el.style.opacity = op;
+                    el.style.pointerEvents = op < 0.05 ? 'none' : '';
+                });
+            }
+
+            // ── 各シーン：円柱回転スケール（中心=大、遠=小） ──
+            sceneObjects.forEach(s => {
+                const r           = s.el.getBoundingClientRect();
+                const sceneCenter = r.top + r.height / 2;
+                const dist        = Math.abs(sceneCenter - vh / 2);
+                const maxDist     = vh * 0.9;
+                // 中心からの距離でスケール決定（コサイン曲線で滑らかに）
+                const ratio  = Math.min(1, dist / maxDist);
+                const cylP   = Math.cos(ratio * Math.PI / 2); // 1.0(中心) → 0.0(遠)
+                const scale  = 0.05 + 0.95 * cylP;
+
+                if (s.personImg) s.personImg.style.transform = `scale(${scale.toFixed(3)})`;
+                if (s.bubble) {
+                    s.bubble.style.transform = `scale(${scale.toFixed(3)})`;
+                    s.bubble.style.opacity   = cylP.toFixed(3);
+                }
+                if (cylP >= 0.75) startTypewriterForScene(s);
+            });
+        }
+
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+
+        // ===== 人物をつなぐ曲線ライン =====
+        function drawConcernLine() {
+            const wrap     = document.querySelector('.concern-wrap');
+            const svg      = document.getElementById('concern-line-svg');
+            const linePath = document.getElementById('concern-line-path');
+            if (!wrap || !svg || !linePath) return;
+
+            const wrapRect = wrap.getBoundingClientRect();
+            svg.setAttribute('viewBox', `0 0 ${wrapRect.width.toFixed(1)} ${wrapRect.height.toFixed(1)}`);
+
+            const centers = sceneObjects.map(s => {
+                const pw = s.el.querySelector('.concern-person-wrap');
+                if (!pw) return null;
+                const r = pw.getBoundingClientRect();
+                return {
+                    x: r.left + r.width  / 2 - wrapRect.left,
+                    y: r.top  + r.height / 2 - wrapRect.top,
+                };
+            }).filter(Boolean);
+
+            if (centers.length < 2) return;
+
+            // 末尾のみ仮想ポイントを追加して下端まで線を伸ばす
+            const H = wrapRect.height;
+            const allPoints = [
+                ...centers,
+                { x: centers[centers.length - 1].x, y: H * 1.15 },
+            ];
+
+            // 各点を滑らかなS字ベジェ曲線で繋ぐ
+            let d = `M ${allPoints[0].x.toFixed(1)} ${allPoints[0].y.toFixed(1)}`;
+            for (let i = 1; i < allPoints.length; i++) {
+                const p = allPoints[i - 1];
+                const q = allPoints[i];
+                const dy = q.y - p.y;
+                d += ` C ${p.x.toFixed(1)} ${(p.y + dy * 0.5).toFixed(1)}` +
+                     ` ${q.x.toFixed(1)} ${(q.y - dy * 0.5).toFixed(1)}` +
+                     ` ${q.x.toFixed(1)} ${q.y.toFixed(1)}`;
+            }
+            linePath.setAttribute('d', d);
+        }
+
+        // ===== ワールド寺子屋セクション 紙吹雪 =====
+        (function initWtConfetti() {
+            const section = document.querySelector('.wt-sticky');
+            if (!section) return;
+            const colors = [
+                '#55161F', '#6B1C27', '#7A1F2E',
+                '#8B2535', '#4A1019', '#3D0D15',
+            ];
+            for (let i = 0; i < 28; i++) {
+                const el = document.createElement('div');
+                el.className = 'wt-confetti';
+                const size = 9 + Math.random() * 10;
+                const isCircle = Math.random() > 0.4;
+                el.style.cssText = [
+                    `left:${Math.random() * 100}%`,
+                    `width:${size}px`,
+                    `height:${isCircle ? size : size * 1.8}px`,
+                    `background:${colors[Math.floor(Math.random() * colors.length)]}`,
+                    `border-radius:${isCircle ? '50%' : '1px'}`,
+                    `animation-delay:${(Math.random() * 5).toFixed(2)}s`,
+                    `animation-duration:${(3.5 + Math.random() * 3.5).toFixed(2)}s`,
+                    `opacity:${0.65 + Math.random() * 0.35}`,
+                ].join(';');
+                section.appendChild(el);
+            }
+        })();
+
+        window.addEventListener('load',   drawConcernLine);
+        window.addEventListener('resize', drawConcernLine);
+        // 画像読み込み後に再計算
+        document.querySelectorAll('.concern-person-wrap img').forEach(img => {
+            img.addEventListener('load', drawConcernLine);
+        });
+        setTimeout(drawConcernLine, 300);
+
+        function toggleZenjiStory() {
+            var text = document.getElementById('zenjiStory');
+            var btn = document.getElementById('zenjiStoryToggle');
+            text.classList.toggle('expanded');
+            btn.textContent = text.classList.contains('expanded') ? '閉じる ▲' : '続きを読む ▼';
+        }
+
+        function toggleChochoStory() {
+            var text = document.getElementById('chochoStory');
+            var btn = document.getElementById('chochoStoryToggle');
+            text.classList.toggle('expanded');
+            btn.textContent = text.classList.contains('expanded') ? '閉じる ▲' : '続きを読む ▼';
+        }
+
+        function toggleArataStory() {
+            var text = document.getElementById('arataStory');
+            var btn = document.getElementById('arataStoryToggle');
+            text.classList.toggle('expanded');
+            btn.textContent = text.classList.contains('expanded') ? '閉じる ▲' : '続きを読む ▼';
+        }
+
+        // ===== スクロールアニメーション (IntersectionObserver) =====
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.12 });
+
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // ===== カウントアップアニメーション =====
+        const countObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const el = entry.target;
+                    const target = parseInt(el.dataset.target);
+                    let current = 0;
+                    const duration = 1800;
+                    const step = target / (duration / 16);
+                    const timer = setInterval(() => {
+                        current = Math.min(current + step, target);
+                        el.textContent = Math.floor(current);
+                        if (current >= target) clearInterval(timer);
+                    }, 16);
+                    countObserver.unobserve(el);
+                }
+            });
+        }, { threshold: 0.5 });
+
+        document.querySelectorAll('.count-up').forEach(el => countObserver.observe(el));
+
+        // ===== 満足度円グラフアニメーション =====
+        (function() {
+            const arc = document.getElementById('satisfactionPieArc');
+            const countEl = document.getElementById('satisfactionCount');
+            if (!arc || !countEl) return;
+            const CIRC = 2 * Math.PI * 160;
+            const TARGET = 94;
+            const TARGET_OFFSET = CIRC * (1 - TARGET / 100);
+            let triggered = false;
+
+            // ─── スクロールロック ───────────────────────────────────────────
+            // ① イベント阻止（passive:false はページロード時に登録必須）
+            // ② body position:fixed でiOSモメンタムスクロールも停止
+            // ③ stickyOuterをfixedにする際はplaceholderで空間を維持し
+            //    Arata以降のレイアウトがずれないようにする
+            var _scrollLocked = false;
+            var _pieLockedY   = 0;
+            var _placeholder  = null;
+            document.addEventListener('wheel',     function(e){ if (_scrollLocked) e.preventDefault(); }, { passive: false });
+            document.addEventListener('touchmove', function(e){ if (_scrollLocked) e.preventDefault(); }, { passive: false });
+            document.addEventListener('keydown',   function(e){
+                if (_scrollLocked && [32,33,34,35,36,37,38,39,40].indexOf(e.keyCode) !== -1) e.preventDefault();
+            });
+
+            function lockScroll() {
+                _scrollLocked = true;
+                _pieLockedY = window.scrollY || window.pageYOffset;
+
+                // リングを現在のviewport位置にfixedで固定
+                if (_stickyOuter) {
+                    var r = _stickyOuter.getBoundingClientRect();
+                    // stickyOuterがflowから抜けた後の空間をplaceholderで維持
+                    _placeholder = document.createElement('div');
+                    _placeholder.style.cssText = 'height:' + _stickyOuter.offsetHeight + 'px;width:100%;flex-shrink:0;';
+                    _stickyOuter.parentNode.insertBefore(_placeholder, _stickyOuter);
+                    _stickyOuter.style.position = 'fixed';
+                    _stickyOuter.style.top      = r.top  + 'px';
+                    _stickyOuter.style.left     = r.left + 'px';
+                    _stickyOuter.style.width    = r.width + 'px';
+                }
+
+                // bodyをfixedにしてモメンタムスクロールも止める
+                document.body.style.top      = '-' + _pieLockedY + 'px';
+                document.body.style.position = 'fixed';
+                document.body.style.width    = '100%';
+            }
+
+            function unlockScroll() {
+                // bodyを先に戻す
+                document.body.style.position = '';
+                document.body.style.top      = '';
+                document.body.style.width    = '';
+
+                // stickyOuterをstickyに戻す
+                if (_stickyOuter) {
+                    _stickyOuter.style.position = '';
+                    _stickyOuter.style.top      = '';
+                    _stickyOuter.style.left     = '';
+                    _stickyOuter.style.width    = '';
+                }
+
+                // placeholderを除去
+                if (_placeholder && _placeholder.parentNode) {
+                    _placeholder.parentNode.removeChild(_placeholder);
+                    _placeholder = null;
+                }
+
+                _scrollLocked = false;
+                window.scrollTo(0, _pieLockedY);
+            }
+
+            // ─── アニメーション本体 ────────────────────────────────────────
+            function startPieAnimation() {
+                lockScroll();
+                arc.style.strokeDashoffset = TARGET_OFFSET;
+                var duration = 1600;
+                var t0 = performance.now();
+                (function tick(now) {
+                    var t    = Math.min((now - t0) / duration, 1);
+                    var ease = 1 - Math.pow(1 - t, 3);
+                    countEl.textContent = Math.round(ease * TARGET);
+                    if (t < 1) {
+                        requestAnimationFrame(tick);
+                    } else {
+                        unlockScroll();
+                        var el;
+                        el = document.getElementById('arataWrap');     if (el) el.classList.add('visible');
+                        el = document.getElementById('arataStoryBox'); if (el) el.classList.add('visible');
+                    }
+                })(t0);
+            }
+
+            // ─── トリガー ──────────────────────────────────────────────────
+            // ArataのトップがviewportのY=280px（リングのsticky位置）に到達した瞬間に発火。
+            // この時点でリング(top:280px固定済み)とArataが正確に重なっている。
+            var _stickyOuter = document.querySelector('.satisfaction-pie-sticky-outer');
+            var _arataEl = document.getElementById('arataWrap');
+            if (_arataEl) {
+                var _triggerObserver = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting && !triggered) {
+                        triggered = true;
+                        _triggerObserver.disconnect();
+                        startPieAnimation();
+                    }
+                }, { rootMargin: '-280px 0px 0px 0px', threshold: 0 });
+                _triggerObserver.observe(_arataEl);
+            }
+        })();
+
+        // ===== カウントダウンタイマー =====
+        const CD_CIRC = 276; // 2π × 44 ≈ 276
+
+        function setRing(id, value, max) {
+            const el = document.getElementById(id);
+            if (el) el.style.strokeDashoffset = (CD_CIRC * (1 - Math.min(value, max) / max)).toFixed(2);
+        }
+
+        function updateCountdown() {
+            // 次回説明会: 5月31日 9:00 (2026)
+            const target = new Date('2026-05-31T09:00:00+09:00');
+            const now = new Date();
+            const diff = target - now;
+
+            if (diff <= 0) {
+                ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
+                    document.getElementById(id).textContent = '00';
+                });
+                ['cd-ring-days','cd-ring-hours','cd-ring-mins','cd-ring-secs'].forEach(id => {
+                    const el = document.getElementById(id);
+                    if (el) el.style.strokeDashoffset = CD_CIRC;
+                });
+                return;
+            }
+
+            const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const secs  = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent  = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-mins').textContent  = String(mins).padStart(2, '0');
+            document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
+
+            // リングを残り時間の割合で更新
+            setRing('cd-ring-days',  days,  30);   // 最大30日
+            setRing('cd-ring-hours', hours, 24);
+            setRing('cd-ring-mins',  secs,  60);   // 秒で1分1周
+            // cd-ring-secs はCSSアニメーションで毎秒1周
+        }
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ===== プログレスナビ =====
+        const navSections = [
+            document.querySelector('.first-view'),
+            document.getElementById('sec-about'),
+            document.getElementById('sec-points'),
+            document.getElementById('sec-program'),
+            document.getElementById('sec-voices'),
+            document.getElementById('sec-scholarship'),
+            document.getElementById('sec-schedule'),
+            document.getElementById('form'),
+        ];
+
+        function updateProgressDots() {
+            const dots = document.querySelectorAll('.progress-dot');
+            const scrollY = window.scrollY + window.innerHeight / 2;
+            let active = 0;
+            navSections.forEach((sec, i) => {
+                if (sec && sec.offsetTop <= scrollY) active = i;
+            });
+            dots.forEach((d, i) => {
+                d.classList.toggle('active', i === active);
+            });
+        }
+
+        document.querySelectorAll('.progress-dot').forEach((dot, i) => {
+            dot.addEventListener('click', () => {
+                const sec = navSections[i];
+                if (sec) window.scrollTo({ top: sec.offsetTop - 60, behavior: 'smooth' });
+            });
+        });
+
+    </script>
+    <script>
+        let slideIndex = 0;
+        let slideTimer;
+
+        function showSlides() {
+            let slides = document.getElementsByClassName("voice-image-slide");
+            let dots = document.getElementsByClassName("dot");
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove("active");
+            }
+            
+            slideIndex++;
+            if (slideIndex > slides.length) {
+                slideIndex = 1;
+            }
+            
+            for (let i = 0; i < dots.length; i++) {
+                dots[i].classList.remove("active");
+            }
+            
+            if (slides[slideIndex - 1]) {
+                slides[slideIndex - 1].classList.add("active");
+            }
+            if (dots[slideIndex - 1]) {
+                dots[slideIndex - 1].classList.add("active");
+            }
+            
+            slideTimer = setTimeout(showSlides, 5000); // 5秒ごとに切り替え
+        }
+
+        function currentSlide(n) {
+            clearTimeout(slideTimer);
+            slideIndex = n - 1;
+            showSlides();
+        }
+
+        // ページ読み込み時に開始
+        document.addEventListener('DOMContentLoaded', function() {
+            showSlides();
+
+            // プログラム内容セクション全体: 右からスライドイン
+            // wrapperを監視（overflow:hiddenの外から交差判定する）
+            const slideWrapper = document.querySelector('.program-slide-wrapper');
+            const programContent = document.querySelector('.program-content');
+            if (slideWrapper && programContent) {
+                const observer = new IntersectionObserver(function(entries) {
+                    if (entries[0].isIntersecting) {
+                        programContent.classList.add('slide-in');
+                        observer.disconnect();
+                    }
+                }, { threshold: 0.05, rootMargin: '0px 0px 200px 0px' });
+                observer.observe(slideWrapper);
+            }
+        });
+
+        // ===== 飛行機アニメーション: セクションが見えたら開始 =====
+        (function() {
+            const plane = document.querySelector('.wt-plane');
+            const wtSec = document.querySelector('.world-terakoya');
+            if (!plane || !wtSec) return;
+            const planeObserver = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
+                    plane.classList.add('flying');
+                    planeObserver.disconnect();
+                }
+            }, { threshold: 0.1 });
+            planeObserver.observe(wtSec);
+        })();
+
+    </script>
+</body>
+</html>
