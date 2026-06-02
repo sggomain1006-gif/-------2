@@ -14,6 +14,9 @@
             padding: 0;
             box-sizing: border-box;
         }
+        html {
+            overflow-x: clip;
+        }
 
         :root {
             --primary-color: #55161F;
@@ -30,15 +33,12 @@
             font-family: 'Noto Sans JP', sans-serif;
             color: var(--text-dark);
             line-height: 1.75;
-            overflow-x: hidden;
+            overflow-x: clip;
+            overscroll-behavior-x: none;
             background: var(--white);
             max-width: 480px;
             margin: 0 auto;
             position: relative;
-        }
-        body > * {
-            max-width: 100%;
-            overflow-x: hidden;
         }
 
         /* PC表示時の背景 */
@@ -2084,7 +2084,7 @@
         .points-carousel-wrap {
             overflow: hidden;
             position: relative;
-            margin: 0 -24px;
+            margin: 0 -20px;
         }
         .points-carousel-track {
             display: flex;
