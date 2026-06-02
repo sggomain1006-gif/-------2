@@ -208,7 +208,7 @@
             align-self: flex-end;
             margin-top: 46px;
             width: max-content;
-            transform: translateX(14px);
+            margin-right: -14px;
         }
 
         .fv-cta {
@@ -1799,10 +1799,11 @@
         }
         .fv-cta-wrap {
             position: absolute;
-            bottom: 215px;
+            top: calc(100svh - 269px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 5;
+            will-change: transform;
         }
         .fv-hero-title {
             font-family: 'Bodoni Moda', serif;
