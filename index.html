@@ -36,6 +36,10 @@
             margin: 0 auto;
             position: relative;
         }
+        body > * {
+            max-width: 100%;
+            overflow-x: hidden;
+        }
 
         /* PC表示時の背景 */
         @media (min-width: 481px) {
@@ -707,7 +711,7 @@
         .voices {
             width: 100%;
             background: var(--white);
-            overflow: clip;
+            overflow-x: hidden;
             position: relative; /* absolute な pie ラッパーの基準 */
         }
 
