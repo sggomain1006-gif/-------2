@@ -7,7 +7,7 @@
     <meta name="description" content="ハーバード・MIT・スタンフォード。世界トップ大学の学生と、無料で繋がる。高校生・大学生向けオンライン探究プログラム。">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -155,6 +155,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 180px;
         }
 
         /* HEROの下部に固定するバー群 */
@@ -417,8 +418,8 @@
             height: 416px;
             pointer-events: none;
             z-index: -1;
-            /* SP: 左端から水平に入り、画面右寄りで80度の急上昇で上端から消える */
-            offset-path: path('M -56 620 C 70 620 196 200 245 -180');
+            /* SP: 左下から右上へ緩やかな弧を描いて上昇 */
+            offset-path: path('M -150 380 C 350 380 600 220 780 60');
             offset-rotate: auto;
             animation: wt-plane-fly 28s linear forwards;
             animation-play-state: paused;
@@ -697,31 +698,31 @@
         /* 参加者の声 */
         .voices {
             background: var(--white);
+            overflow: clip;
+            position: relative; /* absolute な pie ラッパーの基準 */
         }
 
-        /* ===== 満足度円グラフ ===== */
+        /* ===== 満足度円グラフ（常時背景表示） ===== */
+        /* セクション全体を覆う absolute ラッパー */
         .satisfaction-pie-wrap {
+            position: absolute;
+            inset: 0;
             display: flex;
-            flex-direction: column;
-            align-items: center;
-            margin: 60px 0 60px;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 60px; /* ring が section 上端を超えないようにオフセット */
+            pointer-events: none;
+            z-index: 0;
             overflow: visible;
         }
-        .satisfaction-pie-sticky-outer {
-            position: sticky;
-            top: 280px;
-            align-self: flex-start;
-            width: 100%;
-            z-index: 0;
-            pointer-events: none;
-        }
+        /* スクロール中も中央に固定される sticky 要素 */
         .satisfaction-pie-container {
+            position: sticky;
+            top: calc(50vh - 60px);
             width: 220px;
             height: 220px;
             overflow: visible;
-            margin: 0 auto;
-            position: relative;
-            pointer-events: auto;
+            flex-shrink: 0;
         }
         .satisfaction-pie-svg {
             width: 220px;
@@ -782,27 +783,11 @@
             display: flex;
             align-items: center;
             width: 100%;
-            max-width: 480px;
-            margin-top: 60px;
-            margin-right: -50px;
+            max-width: 340px;
+            margin-top: 0;
+            margin-right: 0;
             margin-left: auto;
             z-index: 1;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.7s ease, transform 0.7s ease;
-        }
-        .arata-wrap.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        #arataStoryBox {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: opacity 0.7s ease 0.2s, transform 0.7s ease 0.2s;
-        }
-        #arataStoryBox.visible {
-            opacity: 1;
-            transform: translateY(0);
         }
         .arata-img-inner {
             display: block;
@@ -876,21 +861,65 @@
             cursor: pointer;
             padding: 4px 8px;
         }
+        /* 参加者ブロック（写真＋ストーリーをまとめるラッパー） */
+        .voice-blocks {
+            position: relative;
+            z-index: 1;        /* 円グラフ背景より前面 */
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+            padding-top: 380px;  /* 冒頭: 円グラフだけが見える余白 */
+            padding-bottom: 80px;
+        }
+        .voice-block {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        /* ストーリーボックスも写真に合わせて max-width を揃える */
+        .voice-block .arata-story-box {
+            max-width: 340px;
+        }
+        .voice-block--left .chocho-wrap {
+            margin-right: auto;
+            margin-left: -35px;
+        }
+        .voice-block--left .arata-story-box {
+            margin-right: auto;
+            margin-left: 0;
+        }
+        .voice-block--right .arata-wrap,
+        .voice-block--right .arata-story-box {
+            margin-left: auto;
+            margin-right: 0;
+        }
+        .voice-block--right .zenji-wrap {
+            margin-left: auto;
+            margin-right: 0;
+            transform: translateX(30px);
+        }
+
         .voice-sub-img {
             display: block;
             width: 100%;
-            max-width: 480px;
-            margin-top: 175px;
+            max-width: 340px;
+            margin-top: 0;
         }
         .chocho-wrap {
             position: relative;
             display: flex;
             align-items: center;
+            max-width: 340px;
+            width: 100%;
+            margin-left: -35px;
         }
         .zenji-wrap {
             position: relative;
             display: flex;
             align-items: center;
+            max-width: 340px;
+            width: 100%;
             margin-bottom: 0;
         }
         .zenji-wrap .arata-img-inner {
@@ -909,21 +938,21 @@
             top: 12%;
         }
         .chocho-name-vertical {
-            right: 55px;
+            right: 45px;
             top: 12%;
         }
         .chocho-bubble {
             left: auto;
-            right: -65px;
+            right: -90px;
             top: 62%;
         }
         .voice-sub-img--left {
             margin-right: auto;
-            margin-left: -80px;
+            margin-left: 0;
         }
         .voice-sub-img--right {
             margin-left: auto;
-            margin-right: -100px;
+            margin-right: 0;
         }
         .satisfaction-pie-container .section-subtitle-en {
             position: absolute;
@@ -1734,6 +1763,49 @@
         .reveal-delay-4 { transition-delay: 0.4s; }
 
         /* ===== 募集中バッジ ===== */
+        .fv-badge-wrap {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+            margin-top: -110px;
+        }
+        /* GLOBAL PROJECT 背景テキスト */
+        .fv-gp-text {
+            position: absolute;
+            top: 177px;
+            left: 50%;
+            transform: translate(-50%, -50%) scaleX(0.48);
+            font-family: 'Bodoni Moda', serif;
+            font-size: 90px;
+            font-weight: 800;
+            letter-spacing: 0.02em;
+            color: #fff;
+            -webkit-text-stroke: 0.5px rgba(0, 0, 0, 0.6);
+            paint-order: stroke fill;
+            white-space: nowrap;
+            pointer-events: none;
+            user-select: none;
+            z-index: 1;
+            display: inline-flex;
+            align-items: flex-end;
+            gap: 0.28em;
+        }
+        .fv-gp-word {
+            display: inline-flex;
+            align-items: flex-end;
+        }
+        .fv-gp-reveal {
+            display: block;
+            overflow: hidden;
+            max-width: 0;
+            min-width: 0;
+            white-space: nowrap;
+            transition: max-width 2.8s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .fv-gp-text.visible .fv-gp-lobal  { max-width: 420px; }
+        .fv-gp-text.visible .fv-gp-roject { max-width: 500px; transition-delay: 2.8s; }
         .fv-badge {
             display: inline-flex;
             align-items: center;
@@ -1746,8 +1818,10 @@
             font-weight: 700;
             padding: 8px 18px;
             border-radius: 50px;
-            margin-bottom: 20px;
+            margin-bottom: 0;
             letter-spacing: 0.08em;
+            position: relative;
+            z-index: 1;
         }
         .fv-badge-dot {
             width: 8px;
@@ -2164,8 +2238,14 @@
         </div>
 
         <div class="fv-overlay">
+            <span class="fv-gp-text" aria-hidden="true">
+                <span class="fv-gp-word"><span>G</span><span class="fv-gp-reveal fv-gp-lobal">LOBAL</span></span>
+                <span class="fv-gp-word"><span>P</span><span class="fv-gp-reveal fv-gp-roject">ROJECT</span></span>
+            </span>
             <div class="fv-content">
-                <div class="fv-badge fv-fades"><span class="fv-badge-dot"></span>2026年度 参加者募集中</div>
+                <div class="fv-badge-wrap fv-fades">
+                    <div class="fv-badge"><span class="fv-badge-dot"></span>2026年度 参加者募集中</div>
+                </div>
                 <h1 class="fv-title">あなたの一歩で、<br>世界は近づく。</h1>
                 <p class="fv-subtitle fv-fades">ハーバード・MIT・スタンフォード。<br>世界トップ大学の学生と、多分野で活躍する大人と、<br>本気の仲間達と繋がる。<br>今まで海外に行ったことがなくても、<br>英語を流暢に話せなくても。<br>さぁ、君は何に挑戦する？</p>
                 <a href="https://forms.gle/VC6EL6qB272KM8mZ9" target="_blank" rel="noopener noreferrer" class="fv-cta fv-fades">無料説明会に申し込む</a>
@@ -2533,7 +2613,7 @@
         <h2 class="section-title reveal">グローバルプロジェクトって？</h2>
         <p class="section-subtitle-en">What is GP?</p>
         <p class="gp-description">
-            全国の高校生・大学生が、ハーバード・スタンフォード・MITなど世界トップ大学の学生とオンラインで繋がり、デザイン思考を活用して社会課題に取り組む探究型プログラムです。
+            全国の高校生・大学生が、ハーバード・スタンフォード・MITなど世界トップ大学の学生とオンラインで繋がり、デザイン思考を用いて社会課題に取り組む探究型プログラムです。
         </p>
         <img src="GP1.png" alt="グローバルプロジェクト イメージ" style="width: 100%; border-radius: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.1);">
     </section>
@@ -2550,14 +2630,14 @@
                     <div class="point-content">
                         <div class="point-number">01</div>
                         <div class="point-title">世界トップ大学の学生と直接対話</div>
-                        <p class="point-description">ハーバード・MIT・スタンフォードの現役学生から、リアルな経験を聞ける</p>
+                        <p class="point-description">ハーバード・MIT・スタンフォードの現役学生から、<span style="white-space: nowrap">リアルな経験を聞ける</span></p>
                     </div>
                 </div>
                 <div class="point-item">
-                    <img src="point2.png" alt="デザイン思考で自分だけのテーマに挑戦" class="point-image">
+                    <img src="point2.png" alt="デザイン思考を用いて自分だけのテーマに挑戦" class="point-image">
                     <div class="point-content">
                         <div class="point-number">02</div>
-                        <div class="point-title">デザイン思考で"自分だけ"のテーマに挑戦</div>
+                        <div class="point-title" style="white-space: nowrap; font-size: 14px;">デザイン思考を用いて"自分だけ"のテーマに挑戦</div>
                         <p class="point-description">知識を詰め込むだけじゃない。実際に行動し、失敗し、学ぶプログラム</p>
                     </div>
                 </div>
@@ -2566,7 +2646,7 @@
                     <div class="point-content">
                         <div class="point-number">03</div>
                         <div class="point-title">完全オンライン・全国どこからでも</div>
-                        <p class="point-description">地方でも、海外経験がなくても、平等に参加できる</p>
+                        <p class="point-description">地方でも、海外経験がなくても、誰でも参加できる</p>
                     </div>
                 </div>
             </div>
@@ -2595,7 +2675,7 @@
             </div>
             <div class="wt-bottom">
                 <p class="wt-description">
-                    グローバルプロジェクトの参加者は<strong>「ワールド寺子屋(短期海外研修)」の一次選考が免除</strong>されます。さらに、<strong>優秀者は修了時点で参加権を獲得</strong>します。<br><br>プログラムでの学び→実際の海外経験という、明確なステップアップの道を用意しています。
+                    グローバルプロジェクトの修了者は<strong>「ワールド寺子屋2027(短期海外研修)」の一次選考が免除</strong>されます。さらに、<strong>優秀者は参加権を獲得</strong>します。<br><br>プログラムでの学び→実際の海外経験という、明確なステップアップの道を用意しています。
                 </p>
                 <div class="wt-details">
                     <div class="wt-detail-item">
@@ -2625,8 +2705,7 @@
         <h2 class="section-title">プログラム内容</h2>
         <p class="section-subtitle-en">Program Schedule</p>
         <p class="section-subtitle">
-            本気で世界に挑戦する大人と触れ合い、世界に挑戦する一歩を後押しする。<br>
-            ハーバード、MIT、スタンフォード、コロンビア。世界最高峰の大学で学ぶ現役学生と直接対話できる特別セッションを各回に用意しています。
+            本気で世界に挑戦する大人と触れ合い、世界に挑戦する一歩を後押しする。ハーバード、MIT、スタンフォード、コロンビア。世界最高峰の大学で学ぶ現役学生と直接対話できる特別セッションを各回に用意しています。
         </p>
 
         <div class="program-item with-guest" style="background-image: url('nakamura_sho.jpg');">
@@ -2679,7 +2758,7 @@
                     <div class="program-number">05</div>
                     <h3 class="program-session-title">テスト</h3>
                     <p class="program-date">10月4日(日) 9:00-12:00</p>
-                    <p class="program-description">グローバルゲスト講師: 田中 優希 (MIT(マサチューセッツ工科大学) 学部生)</p>
+                    <p class="program-description" style="padding-left: 10.5em; text-indent: -10.5em;">グローバルゲスト講師: 田中 優希<br>(マサチューセッツ工科大学 学部生)</p>
                 </div>
             </div>
         </div>
@@ -2699,59 +2778,74 @@
 
     <!-- 参加者の声 -->
     <section class="section voices" id="sec-voices">
-        <div class="satisfaction-pie-wrap reveal">
-            <div class="satisfaction-pie-sticky-outer">
-                <div class="satisfaction-pie-container">
-                    <h2 class="section-title">参加者の声</h2>
-                    <p class="section-subtitle-en">voice</p>
-                    <svg class="satisfaction-pie-svg" viewBox="0 0 220 220">
-                        <g id="pieRing">
-                            <circle class="satisfaction-pie-track" cx="110" cy="110" r="160"/>
-                            <circle class="satisfaction-pie-prog" id="satisfactionPieArc" cx="110" cy="110" r="160"/>
-                        </g>
-                        <circle class="satisfaction-pie-inner" cx="110" cy="110" r="67"/>
-                    </svg>
-                    <div class="satisfaction-pie-center">
-                        <div class="satisfaction-pie-num"><span id="satisfactionCount">0</span><span class="satisfaction-pie-pct">%</span></div>
-                        <div class="satisfaction-pie-label">参加者満足度</div>
-                        <div class="satisfaction-pie-detail">2024年度 第1回実施</div>
+        <div class="satisfaction-pie-wrap">
+            <div class="satisfaction-pie-container reveal">
+                <h2 class="section-title">参加者の声</h2>
+                <p class="section-subtitle-en">voice</p>
+                <svg class="satisfaction-pie-svg" viewBox="0 0 220 220">
+                    <g id="pieRing">
+                        <circle class="satisfaction-pie-track" cx="110" cy="110" r="160"/>
+                        <circle class="satisfaction-pie-prog" id="satisfactionPieArc" cx="110" cy="110" r="160"/>
+                    </g>
+                    <circle class="satisfaction-pie-inner" cx="110" cy="110" r="67"/>
+                </svg>
+                <div class="satisfaction-pie-center">
+                    <div class="satisfaction-pie-num"><span id="satisfactionCount">0</span><span class="satisfaction-pie-pct">%</span></div>
+                    <div class="satisfaction-pie-label">参加者満足度</div>
+                    <div class="satisfaction-pie-detail">2024年度 第1回実施</div>
+                </div>
+            </div>
+        </div><!-- /.satisfaction-pie-wrap -->
+
+        <!-- 参加者ブロック（各参加者の写真とストーリーをセットでまとめる） -->
+        <div class="voice-blocks">
+
+                <!-- Arata（右寄せ） -->
+                <div class="voice-block voice-block--right reveal">
+                    <div id="arataWrap" class="arata-wrap">
+                        <div class="arata-bubble">
+                            <p>探究テーマ：<br>「皆が特性を持ったありのままの自分を肯定できるには？」</p>
+                        </div>
+                        <img id="arataImg" src="Arata.png" alt="Arata" class="arata-img-inner">
+                        <span class="arata-name-vertical">Arata</span>
+                    </div>
+                    <div class="arata-story-box" id="arataStoryBox">
+                        <div class="arata-story-text" id="arataStory">言語化できなかった"生涯かけて向き合いたい問い"を形にするため、このプログラムで一歩踏み出しました。グローバルプロジェクトでは、NPO法人「wacca」さんにオンラインインタビューし、その後には「生きてるだけで金メダル！」と書かれたデザインのステッカーやバッジを作成して、周りの人に配ったり、「今日の偉かった自分」をシェアするLINEグループを作成し、効果検証しました。また、「自分の特性ヒーローストーリー」絵本シリーズを試作しました。そのあとは、ワールド寺子屋プログラムに参加し、ボストンとニューヨークに留学しました。一緒に参加したメンバーは、課外活動をたくさん経験してきた人もいれば、これが初めての課外活動という人もいました。そこに違いはあっても、皆「一歩踏みだす仲間」という点では何も違いがありませんし、「一歩踏み出した」今、私たちの目の前には参加前とは全く違う景色が広がっています。自分と向き合い、「一歩踏み出したい」と思ったら、ぜひ参加してほしいです。</div>
+                        <button class="arata-story-toggle" id="arataStoryToggle" onclick="toggleArataStory()">続きを読む ▼</button>
                     </div>
                 </div>
-            </div>
-            <div id="arataWrap" class="arata-wrap">
-                <div class="arata-bubble">
-                    <p>探究テーマ：<br>「皆が特性を持ったありのままの自分を肯定できるには？」</p>
+
+                <!-- Chocho（左寄せ） -->
+                <div class="voice-block voice-block--left reveal">
+                    <div class="chocho-wrap voice-sub-img voice-sub-img--left">
+                        <img src="chocho.png" alt="chocho" class="arata-img-inner">
+                        <span class="arata-name-vertical chocho-name-vertical">Chocho</span>
+                        <div class="arata-bubble chocho-bubble">
+                            <p>探究テーマ：<br>「発展途上国の子どもたちが働きながら学べる環境づくり」</p>
+                        </div>
+                    </div>
+                    <div class="arata-story-box">
+                        <div class="arata-story-text" id="chochoStory">私がグローバルプロジェクトに参加したきっかけは、将来は海外で働きたいという思いがあったものの、具体的なビジョンを描けずにいました。HPで知り「私もやってみたい！」と強く感じたことがきっかけです。グローバルプロジェクトでは、アフリカで活動されている日本の方にインタビューをしたり、学校で文房具を回収して現地に届けたり、このプログラムで考えたアイディアをもとに「起業スタートダッシュ」プログラムに参加しました。海外で活躍されているスピーカーのお話を聞いたとき、「こういう世界もあるんだ」と気づき、大きな高揚感とともに自分の意識が変わる瞬間を体験しました。プログラムを通して、世界の課題を自分ごととして捉える力が養われました。多様な価値観を持つ仲間と本気で議論する中で、自分の考えを深めることができ、特に「自分だけの物差しを持つこと」の大切さを学びました。最初は自信がなかった自分も、発言や行動を重ねるうちに少しずつ成長を実感し、将来に向けて挑戦する意欲が高まりました。この経験は、今後の進路選択や学びにおいて大きな指針となっています。自分の視野を広げ、世界の課題に向き合う一歩を踏み出せる貴重な機会です。多様な仲間との出会いや、本気で語り合う時間が、新しい気づきと自信を生み出してくれます。挑戦と行動をしたら必ず変化はおきます！決めるのは自分、頼るのはスタッフや仲間、Take it easy！</div>
+                        <button class="arata-story-toggle" id="chochoStoryToggle" onclick="toggleChochoStory()">続きを読む ▼</button>
+                    </div>
                 </div>
-                <img id="arataImg" src="Arata.png" alt="Arata" class="arata-img-inner">
-                <span class="arata-name-vertical">Arata</span>
-            </div>
-            <div class="arata-story-box" id="arataStoryBox">
-                <div class="arata-story-text" id="arataStory">言語化できなかった"生涯かけて向き合いたい問い"を形にするため、このプログラムで一歩踏み出しました。グローバルプロジェクトでは、NPO法人「wacca」さんにオンラインインタビューし、その後には「生きてるだけで金メダル！」と書かれたデザインのステッカーやバッジを作成して、周りの人に配ったり、「今日の偉かった自分」をシェアするLINEグループを作成し、効果検証しました。また、「自分の特性ヒーローストーリー」絵本シリーズを試作しました。そのあとは、ワールド寺子屋プログラムに参加し、ボストンとニューヨークに留学しました。一緒に参加したメンバーは、課外活動をたくさん経験してきた人もいれば、これが初めての課外活動という人もいました。そこに違いはあっても、皆「一歩踏みだす仲間」という点では何も違いがありませんし、「一歩踏み出した」今、私たちの目の前には参加前とは全く違う景色が広がっています。自分と向き合い、「一歩踏み出したい」と思ったら、ぜひ参加してほしいです。</div>
-                <button class="arata-story-toggle" id="arataStoryToggle" onclick="toggleArataStory()">続きを読む ▼</button>
-            </div>
-            <div class="chocho-wrap voice-sub-img voice-sub-img--left">
-                <img src="chocho.png" alt="chocho" class="arata-img-inner">
-                <span class="arata-name-vertical chocho-name-vertical">Chocho</span>
-                <div class="arata-bubble chocho-bubble">
-                    <p>探究テーマ：<br>「発展途上国の子どもたちが働きながら学べる環境づくり」</p>
+
+                <!-- Zenji（右寄せ） -->
+                <div class="voice-block voice-block--right reveal">
+                    <div class="zenji-wrap voice-sub-img voice-sub-img--right" style="margin-right: -35px;">
+                        <div class="arata-bubble zenji-bubble">
+                            <p>探究テーマ：<br>「どんな人でも一歩を踏み出すには、何が必要？」</p>
+                        </div>
+                        <img src="Zenji.png" alt="Zenji" class="arata-img-inner">
+                        <span class="arata-name-vertical zenji-name-vertical">Zenji</span>
+                    </div>
+                    <div class="arata-story-box">
+                        <div class="arata-story-text" id="zenjiStory">グローバルプロジェクトで初めて自分のテーマを決めて活動する中、何をしたいのか分からず悩みましたが、ハワイに留学した高校の英語の先生とのZoomをきっかけに方向性を見つけました。先生から、学生でないと応募できない奨学金が多く、留学準備に苦労したという話を聞き、「なぜこんなに素晴らしい人でも支援されないのか」と疑問を抱き、似鳥国際奨学財団に直接メールを送り、若者にできることを尋ねました。グローバルプロジェクトで初めて自分のテーマを決めて活動する中、何をしたいのか分からず悩みましたが、ハワイに留学した高校の英語の先生とのZoomをきっかけに方向性を見つけました。先生から、学生でないと応募できない奨学金が多く、留学準備に苦労したという話を聞き、「なぜこんなに素晴らしい人でも支援されないのか」と疑問を抱き、似鳥国際奨学財団に直接メールを送り、若者にできることを尋ねました。これらの経験を通して、「まずは新しいことに挑戦してみる」ことが人生を変える一歩になると実感しました。やらない理由を探すより、迷ったらやってみる。その上で考えることで、自分のやりたいことがより明確になると感じています。今後はGPやSF派遣での学びを生かして大学受験に挑戦し、ラテンアメリカの文化や社会を学びながら自分の世界を広げていきたいです。Edfutureスタッフさんの手厚いサポートと、日本の素晴らしい同年代との出会いは、大きな刺激になりました。</div>
+                        <button class="arata-story-toggle" id="zenjiStoryToggle" onclick="toggleZenjiStory()">続きを読む ▼</button>
+                    </div>
                 </div>
-            </div>
-            <div class="arata-story-box">
-                <div class="arata-story-text" id="chochoStory">私がグローバルプロジェクトに参加したきっかけは、将来は海外で働きたいという思いがあったものの、具体的なビジョンを描けずにいました。HPで知り「私もやってみたい！」と強く感じたことがきっかけです。グローバルプロジェクトでは、アフリカで活動されている日本の方にインタビューをしたり、学校で文房具を回収して現地に届けたり、このプログラムで考えたアイディアをもとに「起業スタートダッシュ」プログラムに参加しました。海外で活躍されているスピーカーのお話を聞いたとき、「こういう世界もあるんだ」と気づき、大きな高揚感とともに自分の意識が変わる瞬間を体験しました。プログラムを通して、世界の課題を自分ごととして捉える力が養われました。多様な価値観を持つ仲間と本気で議論する中で、自分の考えを深めることができ、特に「自分だけの物差しを持つこと」の大切さを学びました。最初は自信がなかった自分も、発言や行動を重ねるうちに少しずつ成長を実感し、将来に向けて挑戦する意欲が高まりました。この経験は、今後の進路選択や学びにおいて大きな指針となっています。自分の視野を広げ、世界の課題に向き合う一歩を踏み出せる貴重な機会です。多様な仲間との出会いや、本気で語り合う時間が、新しい気づきと自信を生み出してくれます。挑戦と行動をしたら必ず変化はおきます！決めるのは自分、頼るのはスタッフや仲間、Take it easy！</div>
-                <button class="arata-story-toggle" id="chochoStoryToggle" onclick="toggleChochoStory()">続きを読む ▼</button>
-            </div>
-            <div class="zenji-wrap voice-sub-img voice-sub-img--right">
-                <div class="arata-bubble zenji-bubble">
-                    <p>探究テーマ：<br>「どんな人でも一歩を踏み出すには、何が必要？」</p>
-                </div>
-                <img src="Zenji.png" alt="Zenji" class="arata-img-inner">
-                <span class="arata-name-vertical zenji-name-vertical">Zenji</span>
-            </div>
-            <div class="arata-story-box">
-                <div class="arata-story-text" id="zenjiStory">グローバルプロジェクトで初めて自分のテーマを決めて活動する中、何をしたいのか分からず悩みましたが、ハワイに留学した高校の英語の先生とのZoomをきっかけに方向性を見つけました。先生から、学生でないと応募できない奨学金が多く、留学準備に苦労したという話を聞き、「なぜこんなに素晴らしい人でも支援されないのか」と疑問を抱き、似鳥国際奨学財団に直接メールを送り、若者にできることを尋ねました。グローバルプロジェクトで初めて自分のテーマを決めて活動する中、何をしたいのか分からず悩みましたが、ハワイに留学した高校の英語の先生とのZoomをきっかけに方向性を見つけました。先生から、学生でないと応募できない奨学金が多く、留学準備に苦労したという話を聞き、「なぜこんなに素晴らしい人でも支援されないのか」と疑問を抱き、似鳥国際奨学財団に直接メールを送り、若者にできることを尋ねました。これらの経験を通して、「まずは新しいことに挑戦してみる」ことが人生を変える一歩になると実感しました。やらない理由を探すより、迷ったらやってみる。その上で考えることで、自分のやりたいことがより明確になると感じています。今後はGPやSF派遣での学びを生かして大学受験に挑戦し、ラテンアメリカの文化や社会を学びながら自分の世界を広げていきたいです。Edfutureスタッフさんの手厚いサポートと、日本の素晴らしい同年代との出会いは、大きな刺激になりました。</div>
-                <button class="arata-story-toggle" id="zenjiStoryToggle" onclick="toggleZenjiStory()">続きを読む ▼</button>
-            </div>
-        </div>
+
+        </div><!-- /.voice-blocks -->
 
     </section>
 
@@ -2760,7 +2854,7 @@
         <h2 class="section-title">奨学金制度あり</h2>
         <p class="section-subtitle-en">Scholarship is available</p>
         <p class="scholarship-description">
-            edfutureは、すべての子どもが安心して挑戦できる環境を目指しています。<span class="scholarship-highlight">地方在住の方、経済的に不安がある方のために、応援枠・奨学金制度を用意</span>しています。
+            EdFutureは、すべての人が安心して挑戦できる環境を目指しています。<span class="scholarship-highlight">地方在住の方、経済的に不安がある方のために、地方応援枠・奨学金枠を用意</span>しています。
         </p>
 
         <div class="scholarship-box">
@@ -2783,7 +2877,7 @@
 
     <!-- edfutureについて -->
     <section class="section about-org">
-        <h2 class="section-title">未来のために多様な教育を。</h2>
+        <h2 class="section-title">未来のために多様な選択肢を。</h2>
 <p class="section-subtitle-en">education For future</p>
 
         <div class="representative">
@@ -3217,7 +3311,7 @@
 
     <section class="section session-schedule" id="sec-schedule">
 
-        <h2 class="section-title reveal">まずは無料説明会へ</h2>
+        <h2 class="section-title reveal">まずはオンライン無料説明会へ</h2>
         <p class="section-subtitle-en reveal reveal-delay-1">free information session</p>
 
         <!-- カウントダウン -->
@@ -3307,7 +3401,7 @@
         </div>
 
         <p class="session-note sched-note reveal">
-            <span>✓</span> 親御さん・友達との参加もOK<br>
+            <span>✓</span> 保護者・友達との参加もOK<br>
             <span>✓</span> 完全無料・オンライン開催<br>
             <span>✓</span> 少しでも気になったら、まずは説明会へ
         </p>
@@ -3543,7 +3637,7 @@
             /* 自動スクロール */
             function startAuto() {
                 stopAuto();
-                autoTimer = setInterval(function() { advance(1); }, 2000);
+                autoTimer = setInterval(function() { advance(1); }, 5000);
             }
             function stopAuto() {
                 if (autoTimer) { clearInterval(autoTimer); autoTimer = null; }
@@ -3627,7 +3721,7 @@
 
         <div class="condition-box">
             <div class="condition-title">参加費</div>
-            <div class="condition-content">45,000円（税込）</div>
+            <div class="condition-content">45,000円（税込）<br><small>※地方応援枠・奨学金枠に選出された場合は全額無償となります</small></div>
         </div>
     </section>
 
@@ -3664,12 +3758,12 @@
             <div class="faq-item">
                 <div class="faq-question">
                     <span class="faq-badge faq-q-badge">Q</span>
-                    <span class="faq-question-text">高校1年生ですが参加できますか?</span>
+                    <span class="faq-question-text">中学生ですが参加できますか?</span>
                     <span class="faq-toggle">+</span>
                 </div>
                 <div class="faq-answer">
                     <span class="faq-badge faq-a-badge">A</span>
-                    <span class="faq-answer-text">はい、ご参加いただけます。過去参加者にも多くいらっしゃいます。</span>
+                    <span class="faq-answer-text">プログラムにはご参加いただけませんが、内容や雰囲気などを知るために説明会にご参加いただくことは可能です。</span>
                 </div>
             </div>
 
@@ -3693,7 +3787,7 @@
                 </div>
                 <div class="faq-answer">
                     <span class="faq-badge faq-a-badge">A</span>
-                    <span class="faq-answer-text">参加者の中から優秀な成果を残した方数名が選考免除となります。また、仮に選ばれなかった場合でもワールド寺子屋への選考へのお申し込みは可能ですのでご安心ください。</span>
+                    <span class="faq-answer-text">プログラム修了者の中から優秀な成果を残した方数名が選考免除となります。また、仮に選出されなかった場合でもワールド寺子屋の選考へのお申し込みは可能であり、一次選考が免除となりますのでご安心ください。</span>
                 </div>
             </div>
 
@@ -3715,12 +3809,12 @@
     <section id="form" class="section form-section" data-section="7" style="background: linear-gradient(135deg, var(--primary-color) 0%, #7A2530 100%); text-align: center;">
         <h2 class="section-title reveal" style="color: #FFD93D; font-size: 26px; margin-bottom: 8px;">さぁ、一歩踏み出そう。</h2>
         <p class="reveal reveal-delay-1" style="color: rgba(255,255,255,0.85); font-size: 14px; line-height: 1.8; margin-bottom: 32px;">
-            まずは無料説明会へ。<br>英語力・成績不問。全国どこからでも参加OK。
+            まずはオンライン無料説明会へ。<br>英語力・成績不問。全国どこからでも参加OK。
         </p>
 
         <div class="reveal reveal-delay-2" style="background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); border-radius: 20px; padding: 28px 20px; margin-bottom: 28px;">
             <p style="color: rgba(255,255,255,0.7); font-size: 11px; letter-spacing: 0.1em; margin-bottom: 16px;">NEXT SESSION</p>
-            <p style="color: #FFD93D; font-size: 20px; font-weight: 900; margin-bottom: 4px;">5月31日(日) 9:00〜10:00</p>
+            <p id="next-session-date" style="color: #FFD93D; font-size: 20px; font-weight: 900; margin-bottom: 4px;">5月31日(日) 9:00〜10:00</p>
             <p style="color: rgba(255,255,255,0.75); font-size: 13px;">完全無料・オンライン開催</p>
         </div>
 
@@ -3888,6 +3982,13 @@
             });
         });
 
+        // ===== GLOBAL PROJECT アニメーション =====
+        (function() {
+            var gpText = document.querySelector('.fv-gp-text');
+            if (!gpText) return;
+            setTimeout(function() { gpText.classList.add('visible'); }, 600);
+        })();
+
         // ===== HEROフェード ＋ 全シーン スケール＆タイプライター =====
         const fvFadeEls = document.querySelectorAll('.fv-fades');
 
@@ -3900,9 +4001,9 @@
         // シーン設定（順番はHTML出現順）
         const sceneTexts = [
             '海外に興味はあるけど\nいきなり行くのはハードル高いしなぁ…',
-            '海外大の人の話とか\n聞いてみたい...',
-            'このまま卒業は嫌だなぁ...',
-            '本気の仲間が欲しい...',
+            '海外の大学に通ってる人と\n話してみたい...',
+            '卒業までに何かに\n挑戦してみたいなぁ...',
+            '本気で向き合える\n仲間が欲しい...',
         ];
 
         const sceneObjects = Array.from(document.querySelectorAll('.concern-scene')).map((el, i) => ({
@@ -4101,111 +4202,37 @@
 
         // ===== 満足度円グラフアニメーション =====
         (function() {
-            const arc = document.getElementById('satisfactionPieArc');
-            const countEl = document.getElementById('satisfactionCount');
+            var arc     = document.getElementById('satisfactionPieArc');
+            var countEl = document.getElementById('satisfactionCount');
             if (!arc || !countEl) return;
-            const CIRC = 2 * Math.PI * 160;
-            const TARGET = 94;
-            const TARGET_OFFSET = CIRC * (1 - TARGET / 100);
-            let triggered = false;
 
-            // ─── スクロールロック ───────────────────────────────────────────
-            // ① イベント阻止（passive:false はページロード時に登録必須）
-            // ② body position:fixed でiOSモメンタムスクロールも停止
-            // ③ stickyOuterをfixedにする際はplaceholderで空間を維持し
-            //    Arata以降のレイアウトがずれないようにする
-            var _scrollLocked = false;
-            var _pieLockedY   = 0;
-            var _placeholder  = null;
-            document.addEventListener('wheel',     function(e){ if (_scrollLocked) e.preventDefault(); }, { passive: false });
-            document.addEventListener('touchmove', function(e){ if (_scrollLocked) e.preventDefault(); }, { passive: false });
-            document.addEventListener('keydown',   function(e){
-                if (_scrollLocked && [32,33,34,35,36,37,38,39,40].indexOf(e.keyCode) !== -1) e.preventDefault();
-            });
+            var CIRC         = 2 * Math.PI * 160;
+            var TARGET       = 94;
+            var TARGET_OFFSET = CIRC * (1 - TARGET / 100);
+            var triggered    = false;
 
-            function lockScroll() {
-                _scrollLocked = true;
-                _pieLockedY = window.scrollY || window.pageYOffset;
+            var observer = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting && !triggered) {
+                    triggered = true;
+                    observer.disconnect();
 
-                // リングを現在のviewport位置にfixedで固定
-                if (_stickyOuter) {
-                    var r = _stickyOuter.getBoundingClientRect();
-                    // stickyOuterがflowから抜けた後の空間をplaceholderで維持
-                    _placeholder = document.createElement('div');
-                    _placeholder.style.cssText = 'height:' + _stickyOuter.offsetHeight + 'px;width:100%;flex-shrink:0;';
-                    _stickyOuter.parentNode.insertBefore(_placeholder, _stickyOuter);
-                    _stickyOuter.style.position = 'fixed';
-                    _stickyOuter.style.top      = r.top  + 'px';
-                    _stickyOuter.style.left     = r.left + 'px';
-                    _stickyOuter.style.width    = r.width + 'px';
+                    // リングアニメーション（CSS transition で動く）
+                    arc.style.strokeDashoffset = TARGET_OFFSET;
+
+                    // カウントアップ
+                    var duration = 1600;
+                    var t0 = performance.now();
+                    (function tick(now) {
+                        var t    = Math.min((now - t0) / duration, 1);
+                        var ease = 1 - Math.pow(1 - t, 3);
+                        countEl.textContent = Math.round(ease * TARGET);
+                        if (t < 1) requestAnimationFrame(tick);
+                    })(t0);
                 }
+            }, { threshold: 0.3 });
 
-                // bodyをfixedにしてモメンタムスクロールも止める
-                document.body.style.top      = '-' + _pieLockedY + 'px';
-                document.body.style.position = 'fixed';
-                document.body.style.width    = '100%';
-            }
-
-            function unlockScroll() {
-                // bodyを先に戻す
-                document.body.style.position = '';
-                document.body.style.top      = '';
-                document.body.style.width    = '';
-
-                // stickyOuterをstickyに戻す
-                if (_stickyOuter) {
-                    _stickyOuter.style.position = '';
-                    _stickyOuter.style.top      = '';
-                    _stickyOuter.style.left     = '';
-                    _stickyOuter.style.width    = '';
-                }
-
-                // placeholderを除去
-                if (_placeholder && _placeholder.parentNode) {
-                    _placeholder.parentNode.removeChild(_placeholder);
-                    _placeholder = null;
-                }
-
-                _scrollLocked = false;
-                window.scrollTo(0, _pieLockedY);
-            }
-
-            // ─── アニメーション本体 ────────────────────────────────────────
-            function startPieAnimation() {
-                lockScroll();
-                arc.style.strokeDashoffset = TARGET_OFFSET;
-                var duration = 1600;
-                var t0 = performance.now();
-                (function tick(now) {
-                    var t    = Math.min((now - t0) / duration, 1);
-                    var ease = 1 - Math.pow(1 - t, 3);
-                    countEl.textContent = Math.round(ease * TARGET);
-                    if (t < 1) {
-                        requestAnimationFrame(tick);
-                    } else {
-                        unlockScroll();
-                        var el;
-                        el = document.getElementById('arataWrap');     if (el) el.classList.add('visible');
-                        el = document.getElementById('arataStoryBox'); if (el) el.classList.add('visible');
-                    }
-                })(t0);
-            }
-
-            // ─── トリガー ──────────────────────────────────────────────────
-            // ArataのトップがviewportのY=280px（リングのsticky位置）に到達した瞬間に発火。
-            // この時点でリング(top:280px固定済み)とArataが正確に重なっている。
-            var _stickyOuter = document.querySelector('.satisfaction-pie-sticky-outer');
-            var _arataEl = document.getElementById('arataWrap');
-            if (_arataEl) {
-                var _triggerObserver = new IntersectionObserver(function(entries) {
-                    if (entries[0].isIntersecting && !triggered) {
-                        triggered = true;
-                        _triggerObserver.disconnect();
-                        startPieAnimation();
-                    }
-                }, { rootMargin: '-280px 0px 0px 0px', threshold: 0 });
-                _triggerObserver.observe(_arataEl);
-            }
+            var pieContainer = document.querySelector('.satisfaction-pie-container');
+            if (pieContainer) observer.observe(pieContainer);
         })();
 
         // ===== カウントダウンタイマー =====
@@ -4217,12 +4244,16 @@
         }
 
         function updateCountdown() {
-            // 次回説明会: 5月31日 9:00 (2026)
-            const target = new Date('2026-05-31T09:00:00+09:00');
+            const sessions = [
+                new Date('2026-05-23T20:00:00+09:00'),
+                new Date('2026-05-31T09:00:00+09:00'),
+                new Date('2026-06-06T19:00:00+09:00'),
+                new Date('2026-06-10T20:00:00+09:00'),
+            ];
             const now = new Date();
-            const diff = target - now;
+            const target = sessions.find(d => d > now);
 
-            if (diff <= 0) {
+            if (!target) {
                 ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(id => {
                     document.getElementById(id).textContent = '00';
                 });
@@ -4233,6 +4264,7 @@
                 return;
             }
 
+            const diff  = target - now;
             const days  = Math.floor(diff / (1000 * 60 * 60 * 24));
             const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const mins  = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
@@ -4244,13 +4276,26 @@
             document.getElementById('cd-secs').textContent  = String(secs).padStart(2, '0');
 
             // リングを残り時間の割合で更新
-            setRing('cd-ring-days',  days,  30);   // 最大30日
+            setRing('cd-ring-days',  days,  30);
             setRing('cd-ring-hours', hours, 24);
-            setRing('cd-ring-mins',  secs,  60);   // 秒で1分1周
-            // cd-ring-secs はCSSアニメーションで毎秒1周
+            setRing('cd-ring-mins',  secs,  60);
         }
         updateCountdown();
         setInterval(updateCountdown, 1000);
+
+        // NEXT SESSION 日付を自動更新
+        (function() {
+            const sessionList = [
+                { date: new Date('2026-05-23T20:00:00+09:00'), label: '5月23日(土) 20:00〜21:00' },
+                { date: new Date('2026-05-31T09:00:00+09:00'), label: '5月31日(日) 9:00〜10:00' },
+                { date: new Date('2026-06-06T19:00:00+09:00'), label: '6月6日(土) 19:00〜21:00' },
+                { date: new Date('2026-06-10T20:00:00+09:00'), label: '6月10日(水) 20:00〜21:00' },
+            ];
+            const now = new Date();
+            const next = sessionList.find(s => s.date > now);
+            const el = document.getElementById('next-session-date');
+            if (el) el.textContent = next ? next.label : '日程調整中';
+        })();
 
         // ===== プログレスナビ =====
         const navSections = [
