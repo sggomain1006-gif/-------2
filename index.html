@@ -112,6 +112,8 @@
             position: sticky;
             top: 0;
             height: 100svh;
+            height: 100dvh;
+            width: 100%;
             background: linear-gradient(135deg, var(--primary-color) 0%, #7A2530 100%);
             overflow: hidden;
             z-index: 0;
@@ -235,6 +237,7 @@
             padding: 60px 20px;
             position: relative;
             z-index: 2;
+            width: 100%;
         }
 
         /* HEROの上にスクロールする要素 */
@@ -274,6 +277,7 @@
 
         /* 悩みセクション */
         .concerns {
+            width: 100%;
             background: var(--light-gray);
         }
 
@@ -354,6 +358,7 @@
 
         /* ワールド寺子屋 */
         .world-terakoya {
+            width: 100%;
             background: var(--primary-color);
             color: var(--white);
             padding: 0;
@@ -700,6 +705,7 @@
 
         /* 参加者の声 */
         .voices {
+            width: 100%;
             background: var(--white);
             overflow: clip;
             position: relative; /* absolute な pie ラッパーの基準 */
@@ -1660,6 +1666,7 @@
 
         /* フッター */
         footer {
+            width: 100%;
             background: var(--primary-color);
             color: var(--white);
             padding: 40px 20px;
@@ -1799,7 +1806,7 @@
         }
         .fv-cta-wrap {
             position: absolute;
-            top: calc(100svh - 269px);
+            top: calc(100dvh - 269px);
             left: 50%;
             transform: translateX(-50%);
             z-index: 5;
@@ -4412,53 +4419,17 @@
     <script>
         (function() {
             const pieWrap = document.querySelector('.satisfaction-pie-wrap');
-            const pieContainer = document.querySelector('.satisfaction-pie-container');
             const voiceSection = document.querySelector('#sec-voices');
-            if (!pieWrap || !pieContainer || !voiceSection) return;
+            if (!pieWrap || !voiceSection) return;
 
-            let isFixed = false;
-
-            const showObserver = new IntersectionObserver(function(entries) {
-                const entry = entries[0];
-                if (entry.isIntersecting) {
-                    // セクション内に戻った → fixedを解除してstickyに戻す
-                    if (isFixed) {
-                        isFixed = false;
-                        pieContainer.style.position = '';
-                        pieContainer.style.top = '';
-                        pieContainer.style.left = '';
-                        pieContainer.style.width = '';
-                    }
+            const observer = new IntersectionObserver(function(entries) {
+                if (entries[0].isIntersecting) {
                     pieWrap.classList.add('pie-visible');
                 } else {
-                    if (entry.boundingClientRect.top > 0) {
-                        // セクションがまだ下にある（上にスクロールして戻った）→ 非表示
-                        pieWrap.classList.remove('pie-visible');
-                        isFixed = false;
-                        pieContainer.style.position = '';
-                        pieContainer.style.top = '';
-                        pieContainer.style.left = '';
-                        pieContainer.style.width = '';
-                    }
-                    // bottom < 0（下にスクロール済み）はfixedのまま維持
+                    pieWrap.classList.remove('pie-visible');
                 }
-            }, { threshold: 0.05 });
-            showObserver.observe(voiceSection);
-
-            window.addEventListener('scroll', function() {
-                if (isFixed) return;
-                const sectionBottom = voiceSection.getBoundingClientRect().bottom;
-                const stickyTop = window.innerHeight / 2 - 60;
-
-                if (sectionBottom <= stickyTop + pieContainer.offsetHeight) {
-                    const rect = pieContainer.getBoundingClientRect();
-                    pieContainer.style.position = 'fixed';
-                    pieContainer.style.top = rect.top + 'px';
-                    pieContainer.style.left = rect.left + 'px';
-                    pieContainer.style.width = rect.width + 'px';
-                    isFixed = true;
-                }
-            }, { passive: true });
+            }, { threshold: 0 });
+            observer.observe(voiceSection);
         })();
     </script>
 </body>
